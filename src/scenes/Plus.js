@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import uuid from 'react-native-uuid';
 import {
@@ -16,12 +16,23 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import url from "../config/url";
+import url from '../config/url';
 
 const CreatePost = () => {
+  const getUser = async () => {
+    const u = await AsyncStorage.getItem('user');
+    setUser(JSON.parse(u));
+    console.log(user);
+    console.log('id = ');
+    console.log();
+    console.log(typeof user);
+  };
+  useEffect(() => {
+    getUser();
+  }, []);
   const navigator = useNavigation();
+  const [user, setUser] = useState('');
   const [filePath, setFilePath] = useState({});
-  const user = AsyncStorage.getItem('user');
   const requestCameraPermission = async () => {
     if (Platform.OS === 'android') {
       try {
@@ -151,17 +162,13 @@ const CreatePost = () => {
         uri: filePath,
         type: 'image/jpg',
       });
-      const pic = await axios.post(
-        `http://${url}/upload-picture`,
-        formData,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'multipart/form-data',
-            // authorization: `JWT ${token}`,
-          },
+      const pic = await axios.post(`http://${url}/upload-picture`, formData, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+          // authorization: `JWT ${token}`,
         },
-      );
+      });
       console.log('request create post made');
       console.log(pic);
     } catch (error) {
@@ -175,6 +182,7 @@ const CreatePost = () => {
           description: description,
           image: pictureName,
           createdBy: user,
+          // createdBy: "6435e3d119416fce34d108a0"
           // createdBy: user.lastName + user.firstName,
         },
         {headers: {'Content-Type': 'application/json'}},
@@ -215,7 +223,7 @@ const CreatePost = () => {
           style={styles.buttonStyle}
           onPress={async () => {
             await createPost();
-            navigator.navigate('Tabssss');
+            navigator.navigate('Tabs');
           }}>
           <Text style={styles.textStyle}>create</Text>
         </TouchableOpacity>

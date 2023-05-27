@@ -8,7 +8,6 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import colors from '../assets/utils/colors';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
-import { SCREEN_NAMES } from '../navigators/screenNames';
 
 const Splash = () => {
   const navigation = useNavigation();
@@ -31,7 +30,7 @@ const Splash = () => {
           <View style={{}}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate(SCREEN_NAMES.Tabs,{screen:'Home'});
+                navigation.navigate('Tabs');
               }}
               style={{
                 flexDirection: 'row',
@@ -44,7 +43,7 @@ const Splash = () => {
                 borderWidth: 3,
               }}>
               <Text
-                style={{textAlign: 'center', color: '#faebd7', fontSize: 20}}>
+                style={{textAlign: 'center', color: '#faebd7', fontSize: 23}}>
                 {' '}
                 Commencer
               </Text>
@@ -67,7 +66,7 @@ const Splash = () => {
                 borderWidth: 3,
               }}>
               <Text
-                style={{textAlign: 'center', color: '#faebd7', fontSize: 20}}>
+                style={{textAlign: 'center', color: '#faebd7', fontSize: 23}}>
                 {' '}
                 Se connecter
               </Text>

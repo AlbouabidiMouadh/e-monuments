@@ -12,26 +12,47 @@ import url from '../config/url';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {launchImageLibrary} from 'react-native-image-picker';
 import uuid from 'react-native-uuid';
+import axios from 'axios';
+import {useEffect} from 'react';
 
 const EditProfile = ({route, navigation}) => {
   const getId = async () => {
     const id = await AsyncStorage.getItem('user');
-    return id;
+    setID(JSON.parse(id));
+    console.log(id);
   };
+  useEffect(() => {
+    getId();
+  }, []);
   const [ID, setID] = useState(getId);
   const [lastName, setLastName] = useState(null);
   const [firstName, setFirstName] = useState(null);
   const [email, setEmail] = useState(null);
   const [bio, setBio] = useState(null);
   const [user, setUser] = useState();
-  const submitChange = () => {
+  const submitChange = async () => {
     setUser({lastname: lastName, firstName: firstName, email: email, bio: bio});
-    axios
-      .put(`http://${url}/user/${ID}`, user)
-      .then(console.log(result))
-      .catch(err => {
-        console.log(err);
-      });
+    // JSON.stringify(user)
+    console.log(user);
+    const response = await axios.put(`http://${url}/user/${ID}`, {
+      lastname: lastName,
+      firstName: firstName,
+      email: email,
+      bio: bio,
+    });
+    console.log(ID);
+    try {
+      res = response.data;
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+    // axios
+    //   .put(`http://${url}/user/${ID}`, user)
+    //   .then(() => console.log(result))
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
     TostMessage();
     navigation.goBack();
     setUser({});

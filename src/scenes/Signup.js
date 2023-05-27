@@ -61,8 +61,9 @@ const Signup = props => {
           flex: 1,
           alignItems: 'center',
           width: '100%',
-          backgroundColor: '#F2DEBA',
-        }}>
+        backgroundColor: '#DBC593',
+        }}
+          >
         <Text
           style={{
             color: 'white',
@@ -291,7 +292,7 @@ const Signup = props => {
             <Text style={{color: 'grey', fontSize: 14}}>
               En vous connectant, vous acceptez nos{' '}
             </Text>
-            <Text style={{color: '#6C95EC', fontWeight: 'bold', fontSize: 15}}>
+            <Text style={{color: '#85A4BA', fontWeight: 'bold', fontSize: 15}}>
               Termes & Conditions
             </Text>
           </View>
@@ -306,7 +307,7 @@ const Signup = props => {
               marginBottom: 10,
             }}>
             <Text style={{color: 'grey', fontSize: 14}}>et </Text>
-            <Text style={{color: '#6C95EC', fontWeight: 'bold', fontSize: 15}}>
+            <Text style={{color: '#85A4BA', fontWeight: 'bold', fontSize: 15}}>
               Politique de Confidentialité
             </Text>
           </View>
@@ -315,7 +316,7 @@ const Signup = props => {
               SignupAPI();
             }}
             style={{
-              backgroundColor: '#1D1CE5',
+              backgroundColor: '#495784',
               borderRadius: 100,
               alignItems: 'center',
               width: 350,
@@ -339,7 +340,7 @@ const Signup = props => {
             <TouchableOpacity
               onPress={() => props.navigation.navigate('Login')}>
               <Text
-                style={{color: '#6C95EC', fontWeight: 'bold', fontSize: 16}}>
+                style={{color: '#85A4BA', fontWeight: 'bold', fontSize: 16}}>
                 Se connecter
               </Text>
             </TouchableOpacity>

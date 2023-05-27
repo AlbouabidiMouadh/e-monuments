@@ -17,13 +17,11 @@ const Profil = () => {
   const [userData, setUserData] = useState({});
   const [userId, setUserId] = useState();
   const [userPosts, setUserPosts] = useState([]);
-  const getUserId = async () => {
-    const userID = await AsyncStorage.getItem('user');
-    setUserId(userID);
-  };
   const fetchUserData = async () => {
+    console.log('request get user data started');
     const user = await axios.get(`http://${url}/user/${userId}`);
     try {
+      console.log('request get user data success');
       const userD = user.data;
       setUserData(userD);
       console.log(userData);
@@ -32,10 +30,13 @@ const Profil = () => {
     }
   };
   const fetchUserPosts = async () => {
+    console.log('request get user posts started');
     const data = await axios.get(`http://${url}/posts/${userId}`);
     try {
+      console.log('request get user posts success');
       const posts = data.data;
       setUserPosts(posts);
+      console.log(posts);
       console.log(userPosts);
     } catch (err) {
       console.log(err);
@@ -43,8 +44,8 @@ const Profil = () => {
   };
   useEffect(() => {
     const fetchData = async () => {
-      await getUserId();
-      console.log('user id gotten');
+      const userID = await AsyncStorage.getItem('user');
+      setUserId(JSON.parse(userID));
       await fetchUserData();
       console.log('user data fetched');
       await fetchUserPosts();
@@ -223,9 +224,12 @@ const Profil = () => {
             return (
               <View style={{width: Dimensions.get('screen').width / 2 - 20}}>
                 <Image
+                  alt={item.description}
                   source={{
                     uri: `http://${url}/pictures/${String(item.image)}.jpg`,
                   }}
+                  width={200}
+                  height={200}
                 />
                 <Text>{item.title}</Text>
               </View>

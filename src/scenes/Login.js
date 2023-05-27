@@ -1,12 +1,23 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Btn from '../components/Btn';
 import Field from '../components/Field';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import url from "../config/url";
 
+
+const styles = StyleSheet.create({
+  input: {
+    borderRadius: 100,
+    color: '#CA955C',
+    paddingHorizontal: 10,
+    width: '78%',
+    backgroundColor: '#F0F0F0',
+    marginVertical: 10,
+  }
+})
 const Login = props => {
   const navigation = useNavigation();
   const LoginAPI = async () => {
@@ -18,16 +29,17 @@ const Login = props => {
         email: email,
         password: password,
       },
-      {headers: {'Content-Type': 'application/json'}},
+      { headers: { 'Content-Type': 'application/json' } },
     );
     try {
       const result = response.data;
       console.log('done');
       console.log(result);
-      const {errorType, connected, token, user} = result;
+      const { errorType, connected, token, user } = result;
       if (connected == true) {
         await AsyncStorage.setItem('AccessToken', JSON.stringify(token));
         await AsyncStorage.setItem('user', JSON.stringify(user));
+        await AsyncStorage.setItem('id', JSON.stringify(user.id));
         navigation.navigate('Tabs');
       } else {
         setErrorMessage(errorType);
@@ -50,7 +62,7 @@ const Login = props => {
         justifyContent: 'center',
         width: '100%',
         height: '50%',
-        backgroundColor: '#F2DEBA',
+        backgroundColor: '#DBC593',
       }}>
       <Text
         style={{
@@ -65,38 +77,24 @@ const Login = props => {
       <View
         style={{
           backgroundColor: 'white',
-          height: '100%',
+          height: '90%',
           width: '100%',
           borderTopLeftRadius: 130,
           paddingTop: 100,
           alignItems: 'center',
         }}>
-        <Text style={{fontSize: 40, color: '#1D1CE5', fontWeight: 'bold'}}>
+        <Text style={{ fontSize: 40, color: '#495784', fontWeight: 'bold' }}>
           Bienvenu
         </Text>
         <Field
           placeholder="Email /Num de téléphone"
           keyboardType={'email-address'}
           onChangeText={newText => setemail(newText)}
-          style={{
-            borderRadius: 100,
-            color: '#CA955C',
-            paddingHorizontal: 10,
-            width: '78%',
-            backgroundColor: '#F0F0F0',
-            marginVertical: 10,
-          }}
+          style={styles.input}
         />
         <Field
           placeholder="Mot de passe"
-          style={{
-            borderRadius: 100,
-            color: '#CA955C',
-            paddingHorizontal: 10,
-            width: '78%',
-            backgroundColor: '#F0F0F0',
-            marginVertical: 10,
-          }}
+          style={styles.input}
           onChangeText={newText => setPassword(newText)}
           secureTextEntry={true}
         />
@@ -107,15 +105,17 @@ const Login = props => {
             paddingRight: 16,
             marginBottom: 200,
           }}>
-          <Text style={{color: '#6C95EC', fontWeight: 'bold', fontSize: 14}}>
-            Mot de passe oublier?
-          </Text>
+          <TouchableOpacity onPress={() => props.navigation.navigate('Mdpoublier')}>
+            <Text style={{ color: '#85A4BA', fontWeight: 'bold', fontSize: 14 }}>
+              Mot de passe oublier?
+            </Text>
+          </TouchableOpacity>
         </View>
         <Text>{errorMessage}</Text>
 
         <Btn
           textColor="white"
-          bgColor={'#1D1CE5'}
+          bgColor={'#495784'}
           btnLabel="Connexion"
           Press={() => {
             LoginAPI();
@@ -128,9 +128,9 @@ const Login = props => {
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Text style={{fontSize: 12}}>Vous n'avez pas un compte ? </Text>
+          <Text style={{ fontSize: 12 }}>Vous n'avez pas un compte ? </Text>
           <TouchableOpacity onPress={() => props.navigation.navigate('Signup')}>
-            <Text style={{color: '#6C95EC', fontWeight: 'bold', fontSize: 14}}>
+            <Text style={{ color: '#85A4BA', fontWeight: 'bold', fontSize: 14 }}>
               Creer un compte{' '}
             </Text>
           </TouchableOpacity>
