@@ -11,5 +11,6 @@ export const SCREEN_NAMES = {
   Post:'post',
   Plus : 'Plus',
   CreatePost:'CreatePost',
-  OneStream : 'OneStreamScreen'
+  OneStream : 'OneStreamScreen',
+  MdpOublier : 'mdpOublier',
 };

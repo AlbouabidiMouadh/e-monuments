@@ -15,6 +15,7 @@ import EditProfile from './src/scenes/EditProfile';
 import Post from './src/scenes/Post';
 import CreatePost from './src/scenes/Plus';
 import OneStreamScreen from './src/scenes/ILS/Viewer/OneStreamScreen';
+import Mdpoublier from './src/scenes/Mdpoublier';
 
 const RootStack = createStackNavigator();
 
@@ -81,6 +82,11 @@ export default function App({}) {
           <RootStack.Screen
             name={SCREEN_NAMES.Login}
             component={Login}
+            options={{headerShown: false}}
+          />
+          <RootStack.Screen
+            name={SCREEN_NAMES.MdpOublier}
+            component={Mdpoublier}
             options={{headerShown: false}}
           />
           <RootStack.Screen

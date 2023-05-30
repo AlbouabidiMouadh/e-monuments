@@ -224,7 +224,7 @@ const Profil = () => {
             return (
               <View style={{width: Dimensions.get('screen').width / 2 - 20}}>
                 <Image
-                  alt={item.description}
+                alt={item.description}
                   source={{
                     uri: `http://${url}/pictures/${String(item.image)}.jpg`,
                   }}

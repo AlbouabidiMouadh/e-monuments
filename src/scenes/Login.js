@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Btn from '../components/Btn';
 import Field from '../components/Field';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import url from "../config/url";
-
+import url from '../config/url';
 
 const styles = StyleSheet.create({
   input: {
@@ -16,10 +15,13 @@ const styles = StyleSheet.create({
     width: '78%',
     backgroundColor: '#F0F0F0',
     marginVertical: 10,
-  }
-})
+  },
+});
 const Login = props => {
   const navigation = useNavigation();
+  const forgetPasswordHandler = () => {
+    navigation.navigate('mdpOublier');
+  };
   const LoginAPI = async () => {
     console.log('starting the request');
 
@@ -29,17 +31,17 @@ const Login = props => {
         email: email,
         password: password,
       },
-      { headers: { 'Content-Type': 'application/json' } },
+      {headers: {'Content-Type': 'application/json'}},
     );
     try {
       const result = response.data;
       console.log('done');
       console.log(result);
-      const { errorType, connected, token, user } = result;
+      const {errorType, connected, token, user} = result;
       if (connected == true) {
         await AsyncStorage.setItem('AccessToken', JSON.stringify(token));
         await AsyncStorage.setItem('user', JSON.stringify(user));
-        await AsyncStorage.setItem('id', JSON.stringify(user.id));
+        await AsyncStorage.setItem('id', JSON.stringify(user));
         navigation.navigate('Tabs');
       } else {
         setErrorMessage(errorType);
@@ -50,8 +52,8 @@ const Login = props => {
     }
   };
 
-  const [email, setemail] = useState('test');
-  const [password, setPassword] = useState('test');
+  const [email, setemail] = useState();
+  const [password, setPassword] = useState();
   const [errorMessage, setErrorMessage] = useState();
 
   return (
@@ -83,7 +85,7 @@ const Login = props => {
           paddingTop: 100,
           alignItems: 'center',
         }}>
-        <Text style={{ fontSize: 40, color: '#495784', fontWeight: 'bold' }}>
+        <Text style={{fontSize: 40, color: '#495784', fontWeight: 'bold'}}>
           Bienvenu
         </Text>
         <Field
@@ -105,8 +107,11 @@ const Login = props => {
             paddingRight: 16,
             marginBottom: 200,
           }}>
-          <TouchableOpacity onPress={() => props.navigation.navigate('Mdpoublier')}>
-            <Text style={{ color: '#85A4BA', fontWeight: 'bold', fontSize: 14 }}>
+          <TouchableOpacity
+            onPress={() => {
+              forgetPasswordHandler();
+            }}>
+            <Text style={{color: '#85A4BA', fontWeight: 'bold', fontSize: 14}}>
               Mot de passe oublier?
             </Text>
           </TouchableOpacity>
@@ -128,9 +133,9 @@ const Login = props => {
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Text style={{ fontSize: 12 }}>Vous n'avez pas un compte ? </Text>
+          <Text style={{fontSize: 12}}>Vous n\'avez pas un compte ? </Text>
           <TouchableOpacity onPress={() => props.navigation.navigate('Signup')}>
-            <Text style={{ color: '#85A4BA', fontWeight: 'bold', fontSize: 14 }}>
+            <Text style={{color: '#85A4BA', fontWeight: 'bold', fontSize: 14}}>
               Creer un compte{' '}
             </Text>
           </TouchableOpacity>
