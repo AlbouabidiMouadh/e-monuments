@@ -13,4 +13,8 @@ export const SCREEN_NAMES = {
   CreatePost:'CreatePost',
   OneStream : 'OneStreamScreen',
   MdpOublier : 'mdpOublier',
+  FakePayemetPage: 'FakePayementPage',
+  Guide: 'Guide',
+  CreateSponsorship: 'CreateSponsorship',
+  Sponsorship: 'Sponsorship'
 };

@@ -215,6 +215,13 @@ const Profil = () => {
         </TouchableOpacity>
       </View>
       <View>
+        <TouchableOpacity onPress={() => {
+          navigator.navigate('CreateSponsorship')
+        }}>
+          <Text>Create sponsorship</Text>
+        </TouchableOpacity>
+      </View>
+      <View>
         <View>
           <Text>Posts</Text>
         </View>

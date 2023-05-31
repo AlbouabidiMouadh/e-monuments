@@ -1,22 +1,27 @@
-import React, {useState, useEffect} from 'react';
 import {
+  StyleSheet,
+  Dimensions,
   View,
+  FlatList,
+  Text,
   Image,
   TouchableOpacity,
-  ScrollView,
-  Dimensions,
-  Text,
-  StyleSheet,
-  FlatList,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
-import url from '../config/url';
-
-
+import Guidedata from './GuidesData';
 const Guides = () => {
+  // const Guidedata = [{
+  //     id: 0,
+  //     title: "tunisia",
+  //     stateName: "tunisia",
+  //     pictureName: require("../assets/images/5.jpg")
+  // }]
   const navigation = useNavigation();
+  const [sponsorships, setSponsorships] = useState();
   const [isLogged, setIsLogged] = useState(false);
   const func = async () => {
     try {
@@ -30,14 +35,24 @@ const Guides = () => {
       console.log(err);
     }
   };
-  const [guides, setGuides] = useState();
+  const [guides, setGuides] = useState(Guidedata);
   useEffect(() => {
     func();
     fetchGuides();
+    fetchSponsorships();
   }, []);
+  const fetchSponsorships = () => {
+    axios.get(`http://${url}/all-sponsorships`).then(result => {
+      const data = result.data;
+      // data = data.filter(item => {
+      //   return true; // make here the way to filter the sponsorships
+      // });
+      setSponsorships(data);
+    });
+  };
   const fetchGuides = () => {
     axios
-      .get(`http://${url}/all-guides`)
+      .get(`http://${url}/all-guides-states`)
       .then(result => {
         const user = AsyncStorage.getItem('user');
         if (user.email != undefined) {
@@ -60,6 +75,7 @@ const Guides = () => {
         scrollEnabled={true}
         style={{height: '80%'}}
         data={guides}
+        // data={guides}
         keyExtractor={guide => guide._id}
         ListEmptyComponent={() => <Text>pas de publication</Text>}
         renderItem={({item}) => {
@@ -68,18 +84,17 @@ const Guides = () => {
               <Image
                 style={postStyles.vPostImage}
                 source={{
-                  uri: `http://${url}/pictures/${String(
-                    item.image,
-                  )}.jpg`,
+                  uri: `http://${url}/public/images/GuidesStates/${item.pictureName}`,
                 }}
               />
-              <Text style={postStyles.vPostTitle}>{item.title}</Text>
-              <Text style={postStyles.vPostDescription}>
+              <Text style={postStyles.vPostTitle}>{item.stateName}</Text>
+              {/* <Text style={postStyles.vPostDescription}>
                 {item.description}
-              </Text>
+              </Text> */}
               <TouchableOpacity
                 onPress={() => {
-                  if (isLogged) navigation.navigate('Post', {post: item});
+                  if (isLogged)
+                    navigation.navigate('Guide', {state: item.stateName});
                   else alert('you need to sign in to see this content');
                 }}>
                 <Text>ReadMore</Text>
@@ -88,11 +103,38 @@ const Guides = () => {
           );
         }}
       />
-     
 
       {/* sponsorships */}
 
-      <FlatList />
+      <FlatList
+        pagingEnabled={true}
+        scrollEnabled={true}
+        // style={{height: '80%'}}
+        data={sponsorships}
+        keyExtractor={sponsorship => sponsorship._id}
+        ListEmptyComponent={() => <Text>pas de sponsoprships</Text>}
+        renderItem={({item}) => {
+          return (
+            <View>
+              <Image
+                source={{
+                  uri: `http://${url}/pictures/${String(item.image)}.jpg`,
+                }}
+              />
+              <Text>{item.title}</Text>
+              <Text>{item.description}</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  if (isLogged)
+                    navigation.navigate('Sponsorship', {spons: item});
+                  else alert('you need to sign in to see this content');
+                }}>
+                <Text>Plus Information</Text>
+              </TouchableOpacity>
+            </View>
+          );
+        }}
+      />
 
       {/* 
         - profil : sponsorships / modifier profil / posts

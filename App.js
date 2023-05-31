@@ -16,6 +16,10 @@ import Post from './src/scenes/Post';
 import CreatePost from './src/scenes/Plus';
 import OneStreamScreen from './src/scenes/ILS/Viewer/OneStreamScreen';
 import Mdpoublier from './src/scenes/Mdpoublier';
+import Guide from './src/scenes/Guide';
+import CreateSponsorShips from './src/scenes/createSponsorShips';
+import FakePaymentPage from './src/scenes/PayementPage';
+import Sponsorship from './src/scenes/Sponsorship';
 
 const RootStack = createStackNavigator();
 
@@ -24,13 +28,12 @@ export const RoomContext = createContext({
   setRooms: val => {},
   multipleMeetings: false,
   setMultipleMeetings: val => {},
-  showListOfStreams : false,
-  setSHowListOfStreams:val => {},
-  localParticipantMode:undefined,
-  setLocalParticipantMode:val => {},
-  localParticipantId:undefined,
-  setLocalParticipantId:val => {},
-
+  showListOfStreams: false,
+  setSHowListOfStreams: val => {},
+  localParticipantMode: undefined,
+  setLocalParticipantMode: val => {},
+  localParticipantId: undefined,
+  setLocalParticipantId: val => {},
 });
 
 export default function App({}) {
@@ -39,7 +42,6 @@ export default function App({}) {
   const [showListOfStreams, setSHowListOfStreams] = useState(false);
   const [localParticipantMode, setLocalParticipantMode] = useState(undefined);
   const [localParticipantId, setLocalParticipantId] = useState(undefined);
-
 
   const setRooms = val => {
     setAllRooms(val);
@@ -61,7 +63,6 @@ export default function App({}) {
           setLocalParticipantMode,
           localParticipantId,
           setLocalParticipantId,
-          
         }}>
         <RootStack.Navigator
           screenOptions={{
@@ -104,12 +105,31 @@ export default function App({}) {
             component={Post}
             options={{headerShown: false}}
           />
-             <RootStack.Screen
+          <RootStack.Screen
             name={SCREEN_NAMES.CreatePost}
             component={CreatePost}
             options={{headerShown: false}}
           />
-
+          <RootStack.Screen
+            name={SCREEN_NAMES.Guide}
+            component={Guide}
+            options={{headerShown: false}}
+          />
+          <RootStack.Screen
+            name={SCREEN_NAMES.CreateSponsorship}
+            component={CreateSponsorShips}
+            options={{headerShown: false}}
+          />
+          <RootStack.Screen
+            name={SCREEN_NAMES.FakePayemetPage}
+            component={FakePaymentPage}
+            options={{headerShown: false}}
+          />
+          <RootStack.Screen
+            name={SCREEN_NAMES.Sponsorship}
+            component={Sponsorship}
+            options={{headerShown: false}}
+          />
 
           <RootStack.Screen
             name={SCREEN_NAMES.Viewer_Home}
@@ -129,10 +149,8 @@ export default function App({}) {
             name={SCREEN_NAMES.Speaker_Home}
             component={Speaker_Home}
             options={{
-              
               headerStyle: {
                 backgroundColor: colors.primary['900'],
-                
               },
               headerBackTitle: 'Home',
               headerTintColor: '#fff',
@@ -146,12 +164,12 @@ export default function App({}) {
             name={SCREEN_NAMES.Meeting}
             component={Meeting}
             options={{headerShown: false}}
-          /><RootStack.Screen
-          name={SCREEN_NAMES.OneStream}
-          component={OneStreamScreen}
-          options={{headerShown: false,
-          }}
-        />
+          />
+          <RootStack.Screen
+            name={SCREEN_NAMES.OneStream}
+            component={OneStreamScreen}
+            options={{headerShown: false}}
+          />
         </RootStack.Navigator>
       </RoomContext.Provider>
     </NavigationContainer>
