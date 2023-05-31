@@ -76,6 +76,43 @@ const Profil = () => {
               {/* {'accountName'} */}
               {userData.firstName + ' ' + userData.lastName}
             </Text>
+            <TouchableOpacity
+          onPress={async () => {
+            try {
+              const token = await AsyncStorage.getItem('AccessToken');
+              console.log(token);
+              AsyncStorage.removeItem('AccessToken');
+              AsyncStorage.removeItem('user');
+              token = await AsyncStorage.getItem('AccessToken');
+              console.log(AsyncStorage.getItem('AccessToken'));
+            } catch (err) {
+              console.log(err);
+            }
+            navigator.navigate('Splash');
+          }}
+          style={{width: '30%', marginLeft: "25%", marginTop: "2%"}}>
+          <View
+            style={{
+              width: '100%',
+              height: 35,
+              borderRadius: 50,
+              borderColor: '#DEDEDE',
+              borderWidth: 2,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 14,
+                letterSpacing: 1,
+                opacity: 0.8,
+                color: 'red',
+              }}>
+              Log Out
+            </Text>
+          </View>
+        </TouchableOpacity>
           </View>
         </View>
 
@@ -98,9 +135,7 @@ const Profil = () => {
                 alignItems: 'center',
               }}>
               <Image
-                source={{
-                  uri: `http://${url}/pictures/${String(userData.image)}.jpg`,
-                }}
+                source={require("../assets/images/profilll.png")}
                 style={{
                   resizeMode: 'cover',
                   width: 80,
@@ -118,12 +153,7 @@ const Profil = () => {
               {userData.firstName}
             </Text>
           </View>
-          <View style={{alignItems: 'center'}}>
-            <Text style={{fontWeight: 'bold', fontSize: 18, color: 'black'}}>
-              {userData.post}
-            </Text>
-            <Text>Publications</Text>
-          </View>
+          
         </View>
       </View>
     );
@@ -188,37 +218,66 @@ const Profil = () => {
       <View
         style={{
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'row',
           alignItems: 'baseline',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
         }}>
         <TouchableOpacity
           onPress={() => {
             navigator.navigate('Plus');
-          }}>
-          <Text>create post</Text>
+          }}
+          style={{width: '45%'}}>
+          <View
+            style={{
+              width: '100%',
+              height: 35,
+              borderRadius: 50,
+              borderColor: '#DEDEDE',
+              borderWidth: 2,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 14,
+                letterSpacing: 1,
+                opacity: 0.8,
+                color: 'black',
+              }}>
+              Create Post
+            </Text>
+          </View>
         </TouchableOpacity>
+        
+
         <TouchableOpacity
-          onPress={async () => {
-            try {
-              const token = await AsyncStorage.getItem('AccessToken');
-              console.log(token);
-              AsyncStorage.removeItem('AccessToken');
-              AsyncStorage.removeItem('user');
-              token = await AsyncStorage.getItem('AccessToken');
-              console.log(AsyncStorage.getItem('AccessToken'));
-            } catch (err) {
-              console.log(err);
-            }
-            navigator.navigate('Splash');
-          }}>
-          <Text>Log out</Text>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <TouchableOpacity onPress={() => {
-          navigator.navigate('CreateSponsorship')
-        }}>
-          <Text>Create sponsorship</Text>
+          onPress={() => {
+            navigator.navigate('CreateSponsorship');
+          }}
+          style={{width: '45%'}}>
+          <View
+            style={{
+              width: '100%',
+              height: 35,
+              borderRadius: 50,
+              borderColor: '#DEDEDE',
+              borderWidth: 2,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 14,
+                letterSpacing: 1,
+                opacity: 0.8,
+                color: 'black',
+              }}>
+              Create Sponsorship
+            </Text>
+          </View>
         </TouchableOpacity>
       </View>
       <View>
@@ -231,7 +290,7 @@ const Profil = () => {
             return (
               <View style={{width: Dimensions.get('screen').width / 2 - 20}}>
                 <Image
-                alt={item.description}
+                  alt={item.description}
                   source={{
                     uri: `http://${url}/pictures/${String(item.image)}.jpg`,
                   }}
@@ -243,6 +302,7 @@ const Profil = () => {
             );
           })}
         </View>
+        
       </View>
     </View>
   );

@@ -55,11 +55,11 @@ const Guides = () => {
       .get(`http://${url}/all-guides-states`)
       .then(result => {
         const user = AsyncStorage.getItem('user');
-        if (user.email != undefined) {
+        if (typeof user.email == 'string') {
           const listGuides = result.data;
           setGuides(listGuides);
         } else {
-          const listGuides = result.data.slice(0, 10);
+          const listGuides = result.data.slice(0, 7);
           setGuides(listGuides);
         }
       })
@@ -84,7 +84,9 @@ const Guides = () => {
               <Image
                 style={postStyles.vPostImage}
                 source={{
-                  uri: `http://${url}/public/images/GuidesStates/${item.pictureName}`,
+                  uri: `http://${url}/public/pictures/GuidesStates/${String(
+                    item.pictureName,
+                  )}.jpg`,
                 }}
               />
               <Text style={postStyles.vPostTitle}>{item.stateName}</Text>
