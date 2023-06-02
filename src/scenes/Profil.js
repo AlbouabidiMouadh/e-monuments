@@ -19,6 +19,7 @@ const Profil = () => {
   const [userPosts, setUserPosts] = useState([]);
   const fetchUserData = async () => {
     console.log('request get user data started');
+    console.log('')
     const user = await axios.get(`http://${url}/user/${userId}`);
     try {
       console.log('request get user data success');
@@ -77,42 +78,42 @@ const Profil = () => {
               {userData.firstName + ' ' + userData.lastName}
             </Text>
             <TouchableOpacity
-          onPress={async () => {
-            try {
-              const token = await AsyncStorage.getItem('AccessToken');
-              console.log(token);
-              AsyncStorage.removeItem('AccessToken');
-              AsyncStorage.removeItem('user');
-              token = await AsyncStorage.getItem('AccessToken');
-              console.log(AsyncStorage.getItem('AccessToken'));
-            } catch (err) {
-              console.log(err);
-            }
-            navigator.navigate('Splash');
-          }}
-          style={{width: '30%', marginLeft: "25%", marginTop: "2%"}}>
-          <View
-            style={{
-              width: '100%',
-              height: 35,
-              borderRadius: 50,
-              borderColor: '#DEDEDE',
-              borderWidth: 2,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                fontSize: 14,
-                letterSpacing: 1,
-                opacity: 0.8,
-                color: 'red',
-              }}>
-              Log Out
-            </Text>
-          </View>
-        </TouchableOpacity>
+              onPress={async () => {
+                try {
+                  const token = await AsyncStorage.getItem('AccessToken');
+                  console.log(token);
+                  AsyncStorage.removeItem('AccessToken');
+                  AsyncStorage.removeItem('user');
+                  token = await AsyncStorage.getItem('AccessToken');
+                  console.log(AsyncStorage.getItem('AccessToken'));
+                } catch (err) {
+                  console.log(err);
+                }
+                navigation.navigate('Splash'); // Replace `navigator` with `navigation`
+              }}
+              style={{width: '30%', marginLeft: '25%', marginTop: '2%'}}>
+              <View
+                style={{
+                  width: '100%',
+                  height: 35,
+                  borderRadius: 50,
+                  borderColor: '#DEDEDE',
+                  borderWidth: 2,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 14,
+                    letterSpacing: 1,
+                    opacity: 0.8,
+                    color: 'red',
+                  }}>
+                  Log Out
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -135,7 +136,7 @@ const Profil = () => {
                 alignItems: 'center',
               }}>
               <Image
-                source={require("../assets/images/profilll.png")}
+                source={require('../assets/images/profilll.png')}
                 style={{
                   resizeMode: 'cover',
                   width: 80,
@@ -153,7 +154,6 @@ const Profil = () => {
               {userData.firstName}
             </Text>
           </View>
-          
         </View>
       </View>
     );
@@ -184,7 +184,7 @@ const Profil = () => {
               style={{
                 width: '100%',
                 height: 35,
-                borderRadius: 50,
+                borderRadius: 50, // Remove duplicate borderRadius property here
                 borderColor: '#DEDEDE',
                 borderWidth: 2,
                 justifyContent: 'center',
@@ -250,7 +250,6 @@ const Profil = () => {
             </Text>
           </View>
         </TouchableOpacity>
-        
 
         <TouchableOpacity
           onPress={() => {
@@ -302,7 +301,6 @@ const Profil = () => {
             );
           })}
         </View>
-        
       </View>
     </View>
   );

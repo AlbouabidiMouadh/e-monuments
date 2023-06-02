@@ -1,10 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {Image, View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  FlatList,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 
 const Guide = ({route}) => {
-  const {state} = route.params;
+  const {state, stateInfo} = route.params;
   const [guides, setGuides] = useState([]);
   const fetchGuides = async () => {
     const response = await axios.get(`http://${url}/all-guides/${state}`);
@@ -20,13 +27,26 @@ const Guide = ({route}) => {
   }, []);
   return (
     <View>
+      <View>
+        <Text>{stateInfo.Title}</Text>
+        <Text>{stateInfo.description}</Text>
+        <Image
+          source={{
+            uri: `http://${url}/pictures/${String(stateInfo.image)}`,
+          }}
+        />
+      </View>
       <FlatList
         pagingEnabled={true}
         scrollEnabled={true}
         data={guides}
         // data={guides}
         keyExtractor={guide => guide._id}
-        ListEmptyComponent={() => <Text>pas de publication</Text>}
+        ListEmptyComponent={() => (
+          <Text>
+            Les Guides pour cette villes sont en cours de developpement
+          </Text>
+        )}
         renderItem={({guide}) => {
           return (
             <View>

@@ -96,7 +96,7 @@ const Guides = () => {
               <TouchableOpacity
                 onPress={() => {
                   if (isLogged)
-                    navigation.navigate('Guide', {state: item.stateName});
+                    navigation.navigate('Guide', {state: item.stateName, statInfo: item});
                   else alert('you need to sign in to see this content');
                 }}>
                 <Text>ReadMore</Text>
