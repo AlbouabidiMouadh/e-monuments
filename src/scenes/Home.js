@@ -18,7 +18,7 @@ import url from '../config/url';
 const postStyles = StyleSheet.create({
   vPostContainer: {
     width: Dimensions.get('screen').width,
-    height: 300,
+    height: 400,
     // textAlign: "center"
   },
   vPostImage: {
@@ -36,6 +36,15 @@ const postStyles = StyleSheet.create({
 });
 
 export default function Home() {
+  const likeButton = async (id) => {
+    try {
+      console.log("like pressed");
+      const response = axios.put(`http://${url}/post-like/${id}`)
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
   const fetchPosts = () => {
     axios
       .get(`http://${url}/all-posts`)
@@ -125,8 +134,16 @@ export default function Home() {
                     item.image,
                   )}.jpg`,
                 }}
-              />
-              <Text style={postStyles.vPostTitle}>{item.title}</Text>
+              /><Icon
+                    size={30}
+                    style={styles.iconStyle}
+                    name="heart"
+                    color="red"
+                    onPress={() => {
+                      likeButton(item._id);
+                    }}
+                  />
+              <Text style={postStyles.vPostTitle}>{item.title+"  "}</Text>
               <Text style={postStyles.vPostDescription}>
                 {item.description}
               </Text>
@@ -138,15 +155,11 @@ export default function Home() {
                 }}>
                 <Text style={{textAlign: 'center'}}>
                   ReadMore{' '}
-                  {/* <Icon
-                    size={18}
-                    style={styles.iconStyle}
-                    name="doubleright"
-                    color="black"
-                    onPress={() => {
-                      setTerm('');
-                    }}
-                  /> */}
+                  
+                </Text>
+                <Text style={{textAlign: 'center'}}>
+                  Created by {item.createdBy}
+                  
                 </Text>
               </TouchableOpacity>
             </View>

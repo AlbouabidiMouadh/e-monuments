@@ -16,6 +16,7 @@ import axios from 'axios';
 import {useEffect} from 'react';
 
 const EditProfile = ({route, navigation}) => {
+  const userD = route.user ;
   const getId = async () => {
     const id = await AsyncStorage.getItem('user');
     setID(JSON.parse(id));
@@ -24,6 +25,7 @@ const EditProfile = ({route, navigation}) => {
   useEffect(() => {
     getId();
   }, []);
+  const [pic, setPic] = useState(require("../assets/images/profilll.png"))
   const [ID, setID] = useState(getId);
   const [lastName, setLastName] = useState(null);
   const [firstName, setFirstName] = useState(null);
@@ -61,7 +63,7 @@ const EditProfile = ({route, navigation}) => {
     setEmail(null);
     setBio(null);
   };
-  const {profileImage} = route.params;
+  // const {profileImage} = route.params;
   const TostMessage = () => {
     ToastAndroid.show('Edited Sucessfully !', ToastAndroid.SHORT);
   };
@@ -180,7 +182,7 @@ const EditProfile = ({route, navigation}) => {
               setImage();
             }}>
             <Image
-              source={profileImage}
+              source={pic}
               style={{width: 80, height: 80, borderRadius: 100}}
             />
           </TouchableOpacity>
@@ -203,7 +205,7 @@ const EditProfile = ({route, navigation}) => {
           </Text>
           <TextInput
             placeholder="Nom"
-            // defaultValue={name}
+            // defaultValue={userD.firstName}
             style={{
               fontSize: 16,
               borderBottomWidth: 1,
@@ -225,7 +227,7 @@ const EditProfile = ({route, navigation}) => {
           </Text>
           <TextInput
             placeholder="prenom"
-            // defaultValue={accountName}
+            // defaultValue={userD.lastName}
             style={{
               fontSize: 16,
               borderBottomWidth: 1,
@@ -247,6 +249,7 @@ const EditProfile = ({route, navigation}) => {
           </Text>
           <TextInput
             placeholder="Email"
+            // defaultValue={userD.email}
             style={{
               fontSize: 16,
               borderBottomWidth: 1,
@@ -268,6 +271,7 @@ const EditProfile = ({route, navigation}) => {
           </Text>
           <TextInput
             placeholder="Bio"
+            // defaultValue={userD.bio}
             style={{
               fontSize: 16,
               borderBottomWidth: 1,

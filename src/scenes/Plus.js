@@ -147,8 +147,8 @@ const CreatePost = () => {
       // console.log('fileName -> ', response.fileName);
       console.log(response.assets[0].uri);
       setFilePath(response.assets[0].uri);
-      const name = response.assets[0].uri.slice('/');
-      setPicName(name[name.length() - 1]);
+      const name = response.assets[0].uri;
+      setPicName(name);
       setPictureName(uuid.v4());
     });
   };

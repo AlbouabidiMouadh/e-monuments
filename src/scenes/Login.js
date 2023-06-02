@@ -37,11 +37,11 @@ const Login = props => {
       const result = response.data;
       console.log('done');
       console.log(result);
-      const {errorType, connected, token, user} = result;
+      const {errorType, connected, token, name, id} = result;
       if (connected == true) {
         await AsyncStorage.setItem('AccessToken', JSON.stringify(token));
-        await AsyncStorage.setItem('user', JSON.stringify(user));
-        await AsyncStorage.setItem('id', JSON.stringify(user));
+        await AsyncStorage.setItem('user', JSON.stringify(name));
+        await AsyncStorage.setItem('id', JSON.stringify(id));
         navigation.navigate('Tabs');
       } else {
         setErrorMessage(errorType);
