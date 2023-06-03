@@ -16,44 +16,40 @@ import axios from 'axios';
 const Profil = () => {
   const [userData, setUserData] = useState({});
   const [userId, setUserId] = useState();
+  const [userName, setUserName] = useState();
   const [userPosts, setUserPosts] = useState([]);
   const fetchUserData = async () => {
     console.log('request get user data started');
     console.log('')
-    const user = await axios.get(`http://${url}/user/${userId}`);
+    const userDataInfo = await axios.get(`http://${url}/user-profile/${userId}`);
     try {
       console.log('request get user data success');
-      const userD = user.data;
-      setUserData(userD);
+      const userD = userDataInfo.data;
+      setUserData(userD.user);
+      setUserPosts(userD.filtredPosts);
       console.log(userData);
     } catch (err) {
       console.log(err);
     }
   };
-  const fetchUserPosts = async () => {
-    console.log('request get user posts started');
-    const data = await axios.get(`http://${url}/posts/${userId}`);
-    try {
-      console.log('request get user posts success');
-      const posts = data.data;
-      setUserPosts(posts);
-      console.log(posts);
-      console.log(userPosts);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+ 
   useEffect(() => {
-    const fetchData = async () => {
-      const userID = await AsyncStorage.getItem('user');
+    const fetchInfo = async () => {
+      const userID = await AsyncStorage.getItem('id');
+      const username = await AsyncStorage.getItem('user');
       setUserId(JSON.parse(userID));
+      setUserName(JSON.parse(username));
+      console.log(userID);
+      console.log(username);
+    };
+    const fetchData = async () => {
       await fetchUserData();
       console.log('user data fetched');
-      await fetchUserPosts();
-      console.log('user posts fetched');
     };
+    fetchInfo();
     fetchData();
-  }, []);
+
+  }, [userId]);
   const ProfileBody = ({userData}) => {
     return (
       <View>
@@ -75,7 +71,7 @@ const Profil = () => {
                 color: 'black',
               }}>
               {/* {'accountName'} */}
-              {userData.firstName + ' ' + userData.lastName}
+              {userName}
             </Text>
             <TouchableOpacity
               onPress={async () => {
@@ -84,6 +80,7 @@ const Profil = () => {
                   console.log(token);
                   AsyncStorage.removeItem('AccessToken');
                   AsyncStorage.removeItem('user');
+                  AsyncStorage.removeItem('id');
                   token = await AsyncStorage.getItem('AccessToken');
                   console.log(AsyncStorage.getItem('AccessToken'));
                 } catch (err) {
@@ -91,7 +88,7 @@ const Profil = () => {
                 }
                 navigation.navigate('Splash'); // Replace `navigator` with `navigation`
               }}
-              style={{width: '30%', marginLeft: '25%', marginTop: '2%'}}>
+              style={{width: '30%', marginLeft: '44%', marginTop: '2%'}}>
               <View
                 style={{
                   width: '100%',
@@ -145,16 +142,11 @@ const Profil = () => {
                 }}
               />
             </View>
-            <Text
-              style={{
-                paddingVertical: 5,
-                fontWeight: 'bold',
-                color: 'black',
-              }}>
-              {userData.firstName}
-            </Text>
           </View>
         </View>
+          <View style={{alignItems: "center"}}>
+            <Text>{userData.bio+"   "}</Text>
+          </View>
       </View>
     );
   };
@@ -174,7 +166,8 @@ const Profil = () => {
           <TouchableOpacity
             onPress={() =>
               navigation.push('EditProfile', {
-                profileImage: userData.image,
+                // profileImage: userData.profileImage,
+                user: userData
               })
             }
             style={{

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
+  StyleSheet
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
@@ -28,11 +29,11 @@ const Guide = ({route}) => {
   return (
     <View>
       <View>
-        <Text>{stateInfo.Title}</Text>
+        <Text>{stateInfo.title}</Text>
         <Text>{stateInfo.description}</Text>
         <Image
           source={{
-            uri: `http://${url}/pictures/${String(stateInfo.image)}`,
+            uri: `http://${url}/pictures/GuidesStates/${String(stateInfo.image)}`,
           }}
         />
       </View>
@@ -49,16 +50,17 @@ const Guide = ({route}) => {
         )}
         renderItem={({guide}) => {
           return (
-            <View>
+            <View style={styles.container}>
               <Image
+              style={styles.image}
                 source={{
                   uri: `http://${url}/pictures/${String(guide.image)}.jpg`,
                 }}
               />
-              <Text>{guide.title}</Text>
-              <Text>{guide.location}</Text>
-              <Text>{guide.description}</Text>
-              <Text>{guide.likes}</Text>
+              <Text style={styles.title}>{guide.title}</Text>
+              {/* <Text>{guide.location}</Text> */}
+              <Text style={styles.description}>{guide.description}</Text>
+              <Text style={styles.description}>{guide.likes}</Text>
             </View>
           );
         }}
@@ -66,5 +68,24 @@ const Guide = ({route}) => {
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  image: {
+    marginTop: 100,
+    marginBottom: 50,
+    resizeMode: 'cover',
+    height: 300,
+    width: 300,
+  },
+  title: {
+    fontSize: 40,
+  },
+  description: {
+    fontSize: 20,
+  },
+  comments: {},
+});
 export default Guide;
