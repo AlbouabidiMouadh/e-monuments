@@ -14,7 +14,8 @@ const Sponsorship = ({route}) => {
         }}
       />
       <Text style={styles.title}>{spons.title}</Text>
-      <Text style={styles.description}>{spons.description}</Text>
+      <Text style={styles.description}>
+        {spons.description}</Text>
       <Text style={styles.description}>{spons.location}</Text>
     </View>
   );
