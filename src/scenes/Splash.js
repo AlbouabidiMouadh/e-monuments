@@ -14,7 +14,7 @@ const Splash = () => {
   return (
     <View style={{flex: 1}}>
       <ImageBackground
-        source={require('../assets/images/waw.jpeg')}
+        source={require('../assets/images/waw.jpg')}
         style={{height: '100%', width: '100%'}}>
         <View style={{flex: 1, marginHorizontal: 30, marginVertical: 35}}>
           <Text
@@ -43,7 +43,7 @@ const Splash = () => {
                 borderWidth: 3,
               }}>
               <Text
-                style={{textAlign: 'center', color: '#faebd7', fontSize: 23}}>
+                style={{textAlign: 'center', color: 'white', fontSize: 23}}>
                 {' '}
                 Commencer
               </Text>
