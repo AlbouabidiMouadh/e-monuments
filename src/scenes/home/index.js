@@ -19,11 +19,17 @@ const userName = 'user'
       <View
         style={{
           flex: 1,
-          marginHorizontal: 22,
+          
           justifyContent: 'center',
+          backgroundColor:'#B4D9F3'
         }}>
           <Button
+          style={{
+          alignItems: 'center',
+          backgroundColor: '#006BBB',
+          borderRadius: 40,
           
+          }}
           text={'Join Live Streams'}
           onPress={async () => {
             try {
@@ -85,6 +91,11 @@ const userName = 'user'
         </View>
         <Button
           text={'Start Live Stream'}
+          style={{
+            alignItems: 'center',
+            
+            borderRadius: 40,
+            backgroundColor: '#006BBB', }}
           onPress={() => {
             navigation.navigate(SCREEN_NAMES.Speaker_Home, {
               isCreator: true,
