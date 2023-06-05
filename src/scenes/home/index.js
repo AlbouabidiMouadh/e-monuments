@@ -90,7 +90,7 @@ const userName = 'user'
           </Text>
         </View>
         <Button
-          text={'Start Live Stream'}
+          text={'Démarrer le direct'}
           style={{
             alignItems: 'center',
             
