@@ -40,10 +40,10 @@ const Splash = () => {
                 borderRadius: 40,
                 marginBottom: 15,
                 justifyContent: 'space-between',
-                borderWidth: 3,
+                borderWidth: 4,
               }}>
               <Text
-                style={{textAlign: 'center', color: 'white', fontSize: 23}}>
+                style={{textAlign: 'center', color: 'white', fontSize: 25}}>
                 {' '}
                 Commencer
               </Text>
@@ -63,10 +63,10 @@ const Splash = () => {
                 borderRadius: 40,
                 marginBottom: 15,
                 justifyContent: 'space-between',
-                borderWidth: 3,
+                borderWidth: 4,
               }}>
               <Text
-                style={{textAlign: 'center', color: '#faebd7', fontSize: 23}}>
+                style={{textAlign: 'center', color: '#faebd7', fontSize: 25}}>
                 {' '}
                 Se connecter
               </Text>
