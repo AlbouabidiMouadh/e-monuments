@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import MapView, {Callout, Marker, Polyline} from 'react-native-maps';
 import {StyleSheet, Text, View} from 'react-native';
 import RoundWhiteButton from './FinLocation';
@@ -7,12 +7,25 @@ import {
   getLocation,
   moveToUserLocation,
 } from './MaplocationController';
-import {IMapCoords} from './Types';
+import axios from 'axios';
 
 export default function UserMap() {
-  const mapView = React.createRef<MapView>();
+  const [guides, setGuides] = useState([]);
+  const fetchGuides = async () => {
+    const response = await axios.get(`http://${url}/guides-coord`);
+    try {
+      const data = response.data;
+      console.log(data);
+      setGuides(data);
+      console.log(guides)
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const [userLocation, setUserLocation] = useState<IMapCoords>();
+  const mapView = useRef(null);
+
+  const [userLocation, setUserLocation] = useState();
   const [pin, setPin] = useState({
     latitude: 35.75928,
     longitude: 10.812208,
@@ -28,11 +41,12 @@ export default function UserMap() {
     latitudeDelta: 0.09,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     getLocation(setUserLocation);
+    fetchGuides();
   }, []);
 
-  /*   React.useEffect(() => {
+  /*   useEffect(() => {
     setTimeout(() => {
       animateToRegion(mapView, userLocation);
     }, 1000);
@@ -40,7 +54,7 @@ export default function UserMap() {
 
   return (
     <View>
-      <View style={{marginLeft: 12}}>
+      {/* <View style={{ marginLeft: 12 }}>
         <Text
           style={{
             fontSize: 20,
@@ -48,62 +62,76 @@ export default function UserMap() {
             lineHeight: 24,
             letterSpacing: 0,
             fontWeight: '500',
-          }}>
+          }}
+        >
           Welcome to the map
         </Text>
-        <Text style={{marginTop: 10}}>You can see the places near to you</Text>
+        <Text style={{ marginTop: 10 }}>You can see the places near to you</Text>
       </View>
       <RoundWhiteButton
         onPress={() => moveToUserLocation(mapView, userLocation)}
         image={require('../../assets/mapCenter.png')}
         disabled={false}
-      />
+      /> */}
       <MapView
         ref={mapView}
         style={styles.map}
         initialRegion={{
-          latitude: 35.75928,
-          longitude: 10.812208,
+          latitude: 36.81785,
+          longitude: 10.18445,
           longitudeDelta: 0.04,
           latitudeDelta: 0.09,
         }}
         provider="google"
-        minZoomLevel={4}
+        minZoomLevel={10}
         maxZoomLevel={20}
         showsUserLocation={userLocation ? true : false}>
-        <Marker
-          coordinate={pin}
-          draggable={true}
-          onDragStart={e => {
-            console.log(e.nativeEvent.coordinate);
-          }}
-          onDragEnd={e => {
-            setPin({
-              latitude: e.nativeEvent.coordinate.latitude,
-              longitude: e.nativeEvent.coordinate.longitude,
-            });
-          }}>
-          <Callout>
-            <Text>I'm here</Text>
-          </Callout>
-        </Marker>
-        <Marker
+        {guides.map(item => {
+          return (
+            <Marker
+              coordinate={{
+                latitude: parseFloat(item.latitude),
+                longitude: parseFloat(item.longitude),
+              }}
+              // draggable={true}
+              // onDragStart={(e) => {
+              //   console.log(e.nativeEvent.coordinate);
+              // }}
+              // onDragEnd={(e) => {
+              //   setPin({
+              //     latitude: e.nativeEvent.coordinate.latitude,
+              //     longitude: e.nativeEvent.coordinate.longitude,
+              //   });
+              // }}
+            >
+              <Callout>
+                <Text>{item.title}</Text>
+              </Callout>
+            </Marker>
+          );
+        })}
+        {/* <Marker
           coordinate={pin1}
           draggable={true}
-          onDragStart={e => {
+          onDragStart={(e) => {
             console.log(e.nativeEvent.coordinate);
           }}
-          onDragEnd={e => {
+          onDragEnd={(e) => {
             setPin1({
               latitude: e.nativeEvent.coordinate.latitude,
               longitude: e.nativeEvent.coordinate.longitude,
             });
-          }}>
+          }}
+        >
           <Callout>
             <Text>I'm here</Text>
           </Callout>
         </Marker>
-        <Polyline coordinates={[pin1, pin]} strokeColor="red" strokeWidth={6} />
+        <Polyline
+          coordinates={[pin1, pin]}
+          strokeColor="red"
+          strokeWidth={6}
+        /> */}
       </MapView>
     </View>
   );
@@ -114,6 +142,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '90%',
     zIndex: -1,
-    marginTop: 50,
+    // marginTop: 50,
   },
 });

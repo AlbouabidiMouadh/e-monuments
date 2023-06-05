@@ -1,9 +1,7 @@
 import React from 'react';
-import {View, Image, TouchableOpacity} from 'react-native';
-import {IRoundWhiteButtonProps} from './Types';
-import {roundWhiteButtonStyle} from './style';
-
-const RoundWhiteButton = (props: IRoundWhiteButtonProps) => {
+import { View, Image, TouchableOpacity } from 'react-native';
+import { roundWhiteButtonStyle } from './style';
+const RoundWhiteButton = (props) => {
   return (
     <TouchableOpacity onPress={props.onPress} disabled={props.disabled}>
       <View style={roundWhiteButtonStyle.container}>
