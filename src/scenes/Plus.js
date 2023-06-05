@@ -203,14 +203,15 @@ const CreatePost = () => {
           activeOpacity={0.5}
           style={styles.buttonStyle}
           onPress={() => captureImage('photo')}>
-          <Text style={styles.textStyle}>Launch Camera for Image</Text>
+          <Text style={styles.textStyle}>Lancer la caméra</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.buttonStyle}
           onPress={() => chooseFile('photo')}>
-          <Text style={styles.textStyle}>Choose Image</Text>
+          <Text style={styles.textStyle}
+          >Choisissez une image</Text>
         </TouchableOpacity>
         {filePath && <Text>{picName}</Text>}
         {filePath && <Image source={filePath} />}
@@ -255,13 +256,15 @@ const styles = StyleSheet.create({
     padding: 10,
     color: 'black',
     textAlign: 'center',
+    
   },
   buttonStyle: {
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
     padding: 5,
     marginVertical: 10,
-    width: 250,
+    width: 350,
+    borderRadius: 40,
   },
   imageStyle: {
     width: 200,
