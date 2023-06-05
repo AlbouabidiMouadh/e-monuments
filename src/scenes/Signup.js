@@ -107,7 +107,7 @@ const Signup = props => {
                   }
                 : {
                     borderRadius: 100,
-                    color: '#CA955C',
+                    color: '#ED8C56',
                     paddingHorizontal: 10,
                     width: '78%',
                     backgroundColor: '#F0F0F0',
@@ -316,7 +316,7 @@ const Signup = props => {
               SignupAPI();
             }}
             style={{
-              backgroundColor: '#495784',
+              backgroundColor: '#ED8C56',
               borderRadius: 100,
               alignItems: 'center',
               width: 350,

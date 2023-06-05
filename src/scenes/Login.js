@@ -64,7 +64,7 @@ const Login = props => {
         justifyContent: 'center',
         width: '100%',
         height: '50%',
-        backgroundColor: '#DBC593',
+        backgroundColor: '#B4D9F3',
       }}>
       <Text
         style={{
@@ -85,7 +85,7 @@ const Login = props => {
           paddingTop: 100,
           alignItems: 'center',
         }}>
-        <Text style={{fontSize: 40, color: '#495784', fontWeight: 'bold'}}>
+        <Text style={{fontSize: 40, color: '#006BBB', fontWeight: 'bold'}}>
           Bienvenu
         </Text>
         <Field
@@ -120,7 +120,7 @@ const Login = props => {
 
         <Btn
           textColor="white"
-          bgColor={'#495784'}
+          bgColor={'#FFA559'}
           btnLabel="Connexion"
           Press={() => {
             LoginAPI();
