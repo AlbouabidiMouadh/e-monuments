@@ -120,7 +120,7 @@ const Login = props => {
 
         <Btn
           textColor="white"
-          bgColor={'#FFA559'}
+          bgColor={'#ED8C56'}
           btnLabel="Connexion"
           Press={() => {
             LoginAPI();

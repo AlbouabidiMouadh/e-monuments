@@ -61,24 +61,24 @@ const Signup = props => {
           flex: 1,
           alignItems: 'center',
           width: '100%',
-        backgroundColor: '#DBC593',
+        backgroundColor: '#B4D9F3',
         }}
           >
         <Text
           style={{
             color: 'white',
-            fontSize: 64,
+            fontSize: 45,
             fontWeight: 'bold',
-            marginTop: 20,
+            marginTop: 10,
           }}>
           Enregistrer
         </Text>
         <Text
           style={{
             color: 'white',
-            fontSize: 19,
+            fontSize: 15,
             fontWeight: 'bold',
-            marginBottom: 20,
+            marginBottom: 5,
           }}>
           Créer un nouveau compte
         </Text>
@@ -87,8 +87,8 @@ const Signup = props => {
             backgroundColor: 'white',
             height: '150%',
             width: '100%',
-            borderTopLeftRadius: 130,
-            paddingTop: 30,
+            borderTopLeftRadius: 100,
+            paddingTop: 10,
             alignItems: 'center',
           }}>
           <Field
@@ -289,27 +289,12 @@ const Signup = props => {
               alignItems: 'center',
               flexDirection: 'row',
             }}>
-            <Text style={{color: 'grey', fontSize: 14}}>
+            {/* <Text style={{color: 'grey', fontSize: 14}}>
               En vous connectant, vous acceptez nos{' '}
-            </Text>
-            <Text style={{color: '#85A4BA', fontWeight: 'bold', fontSize: 15}}>
+            </Text> */}
+            {/* <Text style={{color: '#85A4BA', fontWeight: 'bold', fontSize: 15}}>
               Termes & Conditions
-            </Text>
-          </View>
-
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              width: '78%',
-              paddingRight: 16,
-              marginBottom: 10,
-            }}>
-            <Text style={{color: 'grey', fontSize: 14}}>et </Text>
-            <Text style={{color: '#85A4BA', fontWeight: 'bold', fontSize: 15}}>
-              Politique de Confidentialité
-            </Text>
+            </Text> */}
           </View>
           <TouchableOpacity
             onPress={() => {

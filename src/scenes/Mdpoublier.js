@@ -34,7 +34,7 @@ const Mdpoublier = () => {
         justifyContent: 'center',
         width: '100%',
         height: '50%',
-        backgroundColor: '#DBC593',
+        backgroundColor: '#B4D9F3',
       }}>
       <View
         style={{
@@ -42,7 +42,7 @@ const Mdpoublier = () => {
           paddingVertical: 10,
           marginVertical: 20,
         }}>
-        <Text style={{fontSize: 30, color: '#495784', fontWeight: 'bold'}}>
+        <Text style={{fontSize: 30, color: '#006BBB', fontWeight: 'bold'}}>
           Mot de passe oublier ?
         </Text>
       </View>
@@ -61,7 +61,7 @@ const Mdpoublier = () => {
       />
       <Btn
         textColor="white"
-        bgColor={'#495784'}
+        bgColor={'#ED8C56'}
         btnLabel="Réinitialiser le mot de passe"
         Press={() => {
           handleResetPassword();
