@@ -4,21 +4,23 @@ const Sponsorship = ({route}) => {
   const {spons} = route.params;
 
   return (
-    <View style={styles.container}>
+    <View>
       <ScrollView>
-        <Image
-          style={styles.image}
-          source={{
-            // uri: `http://${url}/pictures/GuidesStates/sponsorship/cafe-souk.jpg`,
+        <View style={styles.container}>
+          <Image
+            style={styles.image}
+            source={{
+              // uri: `http://${url}/pictures/GuidesStates/sponsorship/cafe-souk.jpg`,
 
-            uri: `http://${url}/pictures/GuidesStates/sponsorship/${String(
-              spons.image,
-            )}.jpg`,
-          }}
-        />
-        <Text style={styles.title}>{spons.title}</Text>
-        <Text style={styles.description}>{spons.description}</Text>
-        <Text style={styles.description}>{spons.location}</Text>
+              uri: `http://${url}/pictures/GuidesStates/sponsorship/${String(
+                spons.image,
+              )}.jpg`,
+            }}
+          />
+          <Text style={styles.title}>{spons.title}</Text>
+          <Text style={styles.description}>{spons.description}</Text>
+          <Text style={styles.description}>localisation: {spons.location}</Text>
+        </View>
       </ScrollView>
     </View>
   );
@@ -37,9 +39,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 40,
+    textAlign: "center"
   },
   description: {
     fontSize: 20,
+    textAlign: "center"
+
   },
   comments: {},
 });
