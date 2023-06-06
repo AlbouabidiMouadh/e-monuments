@@ -6,19 +6,22 @@ import {
   TouchableOpacity,
   TextInput,
   FlatList,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 
 const Guide = ({route}) => {
   const {state, stateInfo} = route.params;
-  const [guides, setGuides] = useState([]);
+  console.log(state, stateInfo);
+  const [guides, setGuides] = useState([{}]);
   const fetchGuides = async () => {
     const response = await axios.get(`http://${url}/all-guides/${state}`);
     try {
       const data = response.data;
       setGuides(data);
+      console.log(guides)
+
     } catch (error) {
       console.log(error);
     }
@@ -28,13 +31,16 @@ const Guide = ({route}) => {
   }, []);
   return (
     <View>
-      <View>
+      <View style={{alignItems: 'center', alignContent: 'center'}}>
         <Text>{stateInfo.title}</Text>
         <Text>{stateInfo.description}</Text>
         <Image
           source={{
-            uri: `http://${url}/pictures/GuidesStates/${String(stateInfo.image)}`,
+            uri: `http://${url}/pictures/GuidesStates/${state.image}.jpg`,
           }}
+          // source={{
+          //   uri: `http://${url}/pictures/GuidesStates/${String(stateInfo.image)}`,
+          // }}
         />
       </View>
       <FlatList
@@ -44,19 +50,19 @@ const Guide = ({route}) => {
         // data={guides}
         keyExtractor={guide => guide._id}
         ListEmptyComponent={() => (
-          <Text>
+          <Text style={{fontWeight: 'bold'}}>
             Les Guides pour cette villes sont en cours de developpement
           </Text>
         )}
         renderItem={({guide}) => {
           return (
             <View style={styles.container}>
-              <Image
-              style={styles.image}
+              {/* <Image
+                style={styles.image}
                 source={{
-                  uri: `http://${url}/pictures/${String(guide.image)}.jpg`,
+                  uri: `http://${url}/pictures/${guide.image}.jpg`,
                 }}
-              />
+              /> */}
               <Text style={styles.title}>{guide.title}</Text>
               {/* <Text>{guide.location}</Text> */}
               <Text style={styles.description}>{guide.description}</Text>

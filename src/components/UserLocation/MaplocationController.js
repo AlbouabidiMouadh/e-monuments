@@ -1,12 +1,11 @@
 import MapView from 'react-native-maps';
-import {IMapCoords} from './Types';
-import {Platform} from 'react-native';
-import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import { Platform } from 'react-native';
+import { check, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import Geolocation from '@react-native-community/geolocation';
 
 export const animateToRegion = async (
-  mapRef: React.RefObject<MapView>,
-  userLocation?: IMapCoords | undefined,
+  mapRef,
+  userLocation,
 ) => {
   if (mapRef !== undefined && mapRef.current !== null) {
     if (userLocation !== undefined) {
@@ -24,8 +23,8 @@ export const animateToRegion = async (
 };
 
 export const moveToUserLocation = (
-  mapRef?: React.RefObject<MapView>,
-  userLocation?: IMapCoords,
+  mapRef,
+  userLocation,
 ) => {
   if (
     mapRef !== undefined &&
@@ -45,8 +44,8 @@ export const moveToUserLocation = (
   }
 };
 export const checkLocationPermissionStatus = (
-  setUserLocation: (value: IMapCoords | undefined) => void,
-  setPermissionStatus: (str: string) => void,
+  setUserLocation,
+  setPermissionStatus,
 ) => {
   check(
     Platform.OS == 'android'
@@ -68,7 +67,7 @@ export const checkLocationPermissionStatus = (
 };
 
 export const getLocation = (
-  setUserLocation: (value: IMapCoords | undefined) => void,
+  setUserLocation,
 ) => {
   Geolocation.getCurrentPosition(
     position => {
@@ -77,6 +76,6 @@ export const getLocation = (
     () => {
       setUserLocation(undefined);
     },
-    {enableHighAccuracy: false, timeout: 5000, maximumAge: 10000},
+    { enableHighAccuracy: false, timeout: 5000, maximumAge: 10000 },
   );
 };
