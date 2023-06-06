@@ -7,7 +7,7 @@ import {
   getLocation,
   moveToUserLocation,
 } from './MaplocationController';
-import Geolocation from 'react-native-geolocation-service';
+import Geolocation from '@react-native-community/geolocation';
 import axios from 'axios';
 
 export default function UserMap() {
