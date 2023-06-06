@@ -111,7 +111,7 @@ const Guides = () => {
                     });
                   else alert('you need to sign in to see this content');
                 }}>
-                <Text>ReadMore</Text>
+                <Text style={{color: 'black'}}>ReadMore</Text>
               </TouchableOpacity>
             </View>
           );
@@ -129,16 +129,20 @@ const Guides = () => {
         ListEmptyComponent={() => <Text>pas de sponsoprships</Text>}
         renderItem={({item}) => {
           return (
-            <View style={{alignItems: 'center', minHeight: 100}}>
+            <View style={{alignItems: 'center', minHeight: 100, color: 'black'}}>
               <Image
                 style={{resizeMode: 'cover', height: 200, width: 300}}
                 source={{
-                  uri: `http://${url}/pictures/GuidesStates/sponsorship/${String(item.image)}.jpg`,
+                  uri: `http://${url}/pictures/GuidesStates/sponsorship/${String(
+                    item.image,
+                  )}.jpg`,
                 }}
               />
-              <Text style={{fontSize: 20}}>{item.title}</Text>
+              <Text style={{fontSize: 20, color: 'black'}}>{item.title}</Text>
               {/* <Text>{item.description}</Text> */}
-              <Text style={{fontSize: 15}}>{String(item.location)}</Text>
+              <Text style={{fontSize: 15, color: 'black'}}>
+                {String(item.location)}
+              </Text>
               <TouchableOpacity
                 style={{marginBottom: 10}}
                 onPress={() => {
@@ -146,7 +150,7 @@ const Guides = () => {
                     navigation.navigate('Sponsorship', {spons: item});
                   else alert('you need to sign in to see this content');
                 }}>
-                <Text>Plus Information</Text>
+                <Text style={{color: 'black'}}>Plus Information</Text>
               </TouchableOpacity>
             </View>
           );
@@ -175,9 +179,12 @@ const postStyles = StyleSheet.create({
     width: Dimensions.get('screen').width,
   },
   vPostTitle: {
+    color: 'black',
     fontSize: 30,
   },
-  vPostDescription: {},
+  vPostDescription: {
+    color: 'black',
+  },
 });
 
 export default Guides;

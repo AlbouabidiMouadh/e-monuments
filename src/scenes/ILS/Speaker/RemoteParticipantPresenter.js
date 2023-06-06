@@ -59,7 +59,7 @@ export default function RemoteParticipantPresenter({presenterId}) {
               fontSize: convertRFValue(12),
               marginLeft: 10,
             }}>
-            {`${presentingText} is Presenting`}
+            {`${presentingText} est en train de présenter.`}
           </Text>
         </View>
       </View>

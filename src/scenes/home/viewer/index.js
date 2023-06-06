@@ -51,17 +51,17 @@ export default function Viewer_Home({navigation}) {
           }}>
           <View style={{marginHorizontal: 32}}>
             <TextInputContainer
-              placeholder={'Enter meeting code'}
+              placeholder={'Entrer le code du meeting'}
               value={meetingId}
               setValue={setMeetingId}
             />
             <TextInputContainer
-              placeholder={'Enter your name'}
+              placeholder={'Entrer votre nom'}
               value={name}
               setValue={setName}
             />
             <Button
-              text={'Join as a viewer'}
+              text={'Joindre comme un guest'}
               onPress={() => naviagateToViewer()}
             />
           </View>

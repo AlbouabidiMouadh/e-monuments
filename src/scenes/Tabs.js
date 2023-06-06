@@ -20,7 +20,7 @@ const Tabs = () => {
   const getUserId = async () => {
     const user = await AsyncStorage.getItem('user');
     console.log('user = ', user);
-    setUserID(user);
+    setUserID("user");
   };
   const [userID, setUserID] = useState(null);
   getUserId();
