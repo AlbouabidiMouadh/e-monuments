@@ -14,7 +14,7 @@ const Splash = () => {
   return (
     <View style={{flex: 1}}>
       <ImageBackground
-        source={require('../assets/images/waw.jpg')}
+        source={require('../assets/images/marwaaaa.jpg')}
         style={{height: '100%', width: '100%', }}
         
         >
