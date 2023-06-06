@@ -7,9 +7,11 @@ import {
   getLocation,
   moveToUserLocation,
 } from './MaplocationController';
+import Geolocation from 'react-native-geolocation-service';
 import axios from 'axios';
 
 export default function UserMap() {
+  const [initialRegion, setInitialRegion] = useState(null);
   const [guides, setGuides] = useState([]);
   const fetchGuides = async () => {
     const response = await axios.get(`http://${url}/guides-coord`);
@@ -42,7 +44,20 @@ export default function UserMap() {
   });
 
   useEffect(() => {
-    getLocation(setUserLocation);
+    Geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        setInitialRegion({
+          latitude,
+          longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        });
+      },
+      error => {
+        console.error(error);
+      }
+    );
     fetchGuides();
   }, []);
 
@@ -69,6 +84,7 @@ export default function UserMap() {
         //   longitudeDelta: 0.04,
         //   latitudeDelta: 0.09,
         // }}
+        initialRegion={initialRegion}
         provider="google"
         minZoomLevel={10}
         maxZoomLevel={20}
