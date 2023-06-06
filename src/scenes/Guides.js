@@ -83,7 +83,7 @@ const Guides = () => {
         horizontal
         pagingEnabled={true}
         scrollEnabled={true}
-        style={{height: '110%'}}
+        style={{height: '120%'}}
         data={guides}
         // data={guides}
         keyExtractor={guide => guide._id}
@@ -106,7 +106,7 @@ const Guides = () => {
                   console.log(item);
                   if (isLogged)
                     navigation.navigate('Guide', {
-                      state: item.title,
+                      state: item.location,
                       stateInfo: item,
                     });
                   else alert('you need to sign in to see this content');
