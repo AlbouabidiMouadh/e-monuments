@@ -70,7 +70,7 @@ export default function ParticipantView({participantId, quality}) {
             color: '#fff',
             fontSize: convertRFValue(10),
           }}>
-          {isLocal ? 'You' : displayName || ''}
+          {isLocal ? 'Vous' : displayName || ''}
         </Text>
       </View>
     );

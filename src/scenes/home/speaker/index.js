@@ -60,7 +60,7 @@ const creatingMeeting=async()=>{
       const _meetingId = await createMeeting({token});
 
       if(_meetingId ==='error'){
-        console.warn('error creating Live Stream')
+        console.warn('error creation dun streaming en direct')
       }
       else setMeetingId(_meetingId);
     }
@@ -244,16 +244,16 @@ const creatingMeeting=async()=>{
                   marginVertical:20,
                   textAlign:'center'
                 }}>
-                Preaparing for starting live stream please wait ...
+                Préparation pour le démarrage de la streaming en direct, veuillez patienter...
               </Text>}
                   {/* use the name of the current auth user no need for this text input  */}
                 <TextInputContainer
-                  placeholder={'Enter your name'}
+                  placeholder={'Entrer votre nom'}
                   value={name}
                   setValue={setName}
                 />
                {meetingId &&   <Button
-                  text={'start live'}
+                  text={'Démarrer le streaming en direct'}
                   onPress={() => naviagateToSpeaker()}
                 />} 
               </>

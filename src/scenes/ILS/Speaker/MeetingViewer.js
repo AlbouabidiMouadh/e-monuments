@@ -141,7 +141,7 @@ export default function MeetingViewer({setlocalParticipantMode}) {
   usePubSub('RAISE_HAND', {
     onMessageReceived: data => {
       const {senderName} = data;
-      Toast.show(`${senderName} raised hand 🖐🏼`);
+      Toast.show(`${senderName} main levée 🖐🏼`);
     },
   });
 
@@ -289,7 +289,7 @@ export default function MeetingViewer({setlocalParticipantMode}) {
                   fontSize: convertRFValue(12),
                   color: colors.primary[100],
                 }}>
-                Go Live
+                Passer en direct.
               </Text>
             </TouchableOpacity>
           )}

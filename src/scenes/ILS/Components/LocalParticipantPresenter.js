@@ -28,7 +28,7 @@ export default LocalParticipantPresenter = ({}) => {
             color: colors.primary[100],
             marginVertical: 12,
           }}>
-          You are presenting to everyone
+          Vous vous présentez à tout le monde.
         </Text>
         <TouchableOpacity
           style={{
@@ -48,7 +48,7 @@ export default LocalParticipantPresenter = ({}) => {
               fontSize: 16,
               // fontFamily: ROBOTO_FONTS.RobotoBold,
             }}>
-            Stop Presenting
+            Arrêter la présentation.
           </Text>
         </TouchableOpacity>
       </View>

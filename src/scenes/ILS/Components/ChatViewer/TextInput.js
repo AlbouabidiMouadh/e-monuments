@@ -26,7 +26,7 @@ export default function TextInputContainer({sendMessage, setMessage, message}) {
           <TextInput
             multiline
             value={message}
-            placeholder={'Write your message'}
+            placeholder={'Ecrire votre message'}
             style={{
               flex: 1,
               color: 'white',

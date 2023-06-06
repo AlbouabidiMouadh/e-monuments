@@ -17,7 +17,7 @@ export default function WaitingToJoinView() {
           fontSize: convertRFValue(18),
           color: colors.primary[100],
         }}>
-        wait for live room ...
+        Veuillez patienter dans la salle de streaming en direct.
       </Text>
     </View>
   );
