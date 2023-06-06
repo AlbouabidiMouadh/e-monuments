@@ -187,7 +187,7 @@ const CreatePost = () => {
           description: description,
           image: pictureName,
           createdByName: user,
-          createdById: user,
+          createdById: id,
           
         },
         {headers: {'Content-Type': 'application/json'}},
