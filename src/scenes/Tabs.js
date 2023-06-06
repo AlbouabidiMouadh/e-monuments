@@ -36,7 +36,7 @@ const Tabs = () => {
           name="home"
           component={Home}
           options={{
-            tabBarLabel: 'Home',
+            tabBarLabel: 'Accueil',
             tabBarIcon: ({color, size}) => (
               <Icon name="home-outline" color={color} size={size} />
             ),
@@ -78,11 +78,11 @@ const Tabs = () => {
             }}
           />
           <Tab.Screen
-            name="LiveStream"
+            name="liveStream"
             component={LiveStreamHome}
             options={{
               headerShown: false,
-              tabBarLabel: 'LiveStream',
+              tabBarLabel: 'Streaming',
               tabBarIcon: ({color, size}) => (
                 <Icon name="ios-add-circle-outline" color={color} size={size} />
               ),

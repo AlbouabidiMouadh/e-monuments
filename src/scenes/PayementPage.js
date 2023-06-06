@@ -16,18 +16,18 @@ const FakePaymentPage = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Payment Details</Text>
+      <Text style={styles.title}>Donnees de Payments</Text>
 
       <TextInput
         style={styles.input}
-        placeholder="Card Number"
+        placeholder="Numero de Carte"
         value={cardNumber}
         onChangeText={setCardNumber}
       />
 
       <TextInput
         style={styles.input}
-        placeholder="Expiration Date"
+        placeholder="Date Expiration"
         value={expirationDate}
         onChangeText={setExpirationDate}
       />
@@ -40,7 +40,7 @@ const FakePaymentPage = () => {
       />
 
       <TouchableOpacity style={styles.button} onPress={handlePayment}>
-        <Text style={styles.buttonText}>Make Payment</Text>
+        <Text style={styles.buttonText}>Payment</Text>
       </TouchableOpacity>
     </View>
   );

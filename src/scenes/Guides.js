@@ -39,6 +39,8 @@ const Guides = () => {
   const fetchSponsorships = () => {
     axios.get(`http://${url}/all-sponsorships`).then(result => {
       const data = result.data;
+      console.log('--------------------------------------------------------');
+      console.log(data);
       // data = data.filter(item => {
       //   return true; // make here the way to filter the sponsorships
       // });
@@ -52,6 +54,9 @@ const Guides = () => {
         const user = AsyncStorage.getItem('user');
         if (typeof user) {
           const listGuides = result.data.slice(0, 23);
+          console.log(
+            '--------------------------------------------------------',
+          );
           console.log(listGuides);
           setGuides(listGuides);
         } else {
@@ -70,14 +75,15 @@ const Guides = () => {
     fetchSponsorships();
   }, []);
   return (
-    <View style={{
-      height: Dimensions.get('screen').height 
-    }}>
+    <View
+      style={{
+        height: Dimensions.get('screen').height,
+      }}>
       <FlatList
         horizontal
         pagingEnabled={true}
         scrollEnabled={true}
-        style={{height: '100%'}}
+        style={{height: '110%'}}
         data={guides}
         // data={guides}
         keyExtractor={guide => guide._id}
@@ -97,7 +103,7 @@ const Guides = () => {
               </Text>
               <TouchableOpacity
                 onPress={() => {
-                  console.log(item)
+                  console.log(item);
                   if (isLogged)
                     navigation.navigate('Guide', {
                       state: item.title,
@@ -123,15 +129,16 @@ const Guides = () => {
         ListEmptyComponent={() => <Text>pas de sponsoprships</Text>}
         renderItem={({item}) => {
           return (
-            <View style={{alignItems: 'center', height: 100}}>
+            <View style={{alignItems: 'center', minHeight: 100}}>
               <Image
+                style={{resizeMode: 'cover', height: 200, width: 300}}
                 source={{
-                  uri: `http://${url}/pictures/${String(item.image)}.jpg`,
+                  uri: `http://${url}/pictures/GuidesStates/sponsorship/${String(item.image)}.jpg`,
                 }}
               />
               <Text style={{fontSize: 20}}>{item.title}</Text>
               {/* <Text>{item.description}</Text> */}
-              <Text style={{fontSize: 15}}>{item.location}</Text>
+              <Text style={{fontSize: 15}}>{String(item.location)}</Text>
               <TouchableOpacity
                 style={{marginBottom: 10}}
                 onPress={() => {
@@ -159,6 +166,7 @@ const postStyles = StyleSheet.create({
   vPostContainer: {
     width: Dimensions.get('screen').width,
     height: 250,
+    alignItems: 'center',
     // textAlign: "center"
   },
   vPostImage: {

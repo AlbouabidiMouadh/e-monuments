@@ -18,7 +18,7 @@ const Mdpoublier = () => {
       if (response.data.sent == true) {
         console.log('request done');
         console.log(response.data);
-        Alert.alert('your new password is sent to you please check your email !');
+        Alert.alert('votre nouvelle mot de passe est envoyer a votre email !');
         navigation.navigate('Splash');
       }
     } catch (err) {

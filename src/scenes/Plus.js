@@ -22,7 +22,9 @@ const CreatePost = () => {
   const [picName, setPicName] = useState('no picture selected yet');
   const getUser = async () => {
     const u = await AsyncStorage.getItem('user');
+    const id = await AsyncStorage.getItem('id');
     setUser(JSON.parse(u));
+    setID(JSON.parse(id));
     console.log(user);
     console.log('id = ');
     console.log();
@@ -184,9 +186,9 @@ const CreatePost = () => {
           title: title,
           description: description,
           image: pictureName,
-          createdBy: user,
-          // createdBy: "6435e3d119416fce34d108a0"
-          // createdBy: user.lastName + user.firstName,
+          createdByName: user,
+          createdById: user,
+          
         },
         {headers: {'Content-Type': 'application/json'}},
       );
@@ -197,7 +199,7 @@ const CreatePost = () => {
   };
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Text style={styles.titleText}>Create Post</Text>
+      <Text style={styles.titleText}>Creer Post</Text>
       <View style={styles.container}>
         <TouchableOpacity
           activeOpacity={0.5}
@@ -216,7 +218,7 @@ const CreatePost = () => {
         {filePath && <Text>{picName}</Text>}
         {filePath && <Image source={filePath} />}
         <TextInput
-          placeholder="title"
+          placeholder="titre"
           onChangeText={newText => setTitle(newText)}
           style={{}}></TextInput>
         <TextInput
@@ -230,7 +232,7 @@ const CreatePost = () => {
             await createPost();
             navigator.navigate('Tabs');
           }}>
-          <Text style={styles.textStyle}>create</Text>
+          <Text style={styles.textStyle}>creer</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

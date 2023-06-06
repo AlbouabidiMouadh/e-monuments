@@ -158,7 +158,7 @@ export default function Home() {
                   
                 </Text>
                 <Text style={{textAlign: 'center'}}>
-                  Created by {item.createdBy}
+                  Creer par {item.createdBy}
                   
                 </Text>
               </TouchableOpacity>
