@@ -54,20 +54,7 @@ export default function UserMap() {
 
   return (
     <View>
-      {/* <View style={{ marginLeft: 12 }}>
-        <Text
-          style={{
-            fontSize: 20,
-            marginRight: 12,
-            lineHeight: 24,
-            letterSpacing: 0,
-            fontWeight: '500',
-          }}
-        >
-          Welcome to the map
-        </Text>
-        <Text style={{ marginTop: 10 }}>You can see the places near to you</Text>
-      </View>
+      {/* 
       <RoundWhiteButton
         onPress={() => moveToUserLocation(mapView, userLocation)}
         image={require('../../assets/mapCenter.png')}
@@ -76,17 +63,17 @@ export default function UserMap() {
       <MapView
         ref={mapView}
         style={styles.map}
-        initialRegion={{
-          latitude: 36.81785,
-          longitude: 10.18445,
-          longitudeDelta: 0.04,
-          latitudeDelta: 0.09,
-        }}
+        // initialRegion={{
+        //   latitude: 36.81785,
+        //   longitude: 10.18445,
+        //   longitudeDelta: 0.04,
+        //   latitudeDelta: 0.09,
+        // }}
         provider="google"
         minZoomLevel={10}
         maxZoomLevel={20}
         showsUserLocation={userLocation ? true : false}>
-        {guides.map(item => {
+        {/* {guides.map(item => {
           return (
             <Marker
               coordinate={{
@@ -109,7 +96,7 @@ export default function UserMap() {
               </Callout>
             </Marker>
           );
-        })}
+        })} */}
         {/* <Marker
           coordinate={pin1}
           draggable={true}
@@ -140,7 +127,7 @@ export default function UserMap() {
 const styles = StyleSheet.create({
   map: {
     width: '100%',
-    height: '90%',
+    height: '100%',
     zIndex: -1,
     // marginTop: 50,
   },
