@@ -115,13 +115,13 @@ const CreateSponsorShips = () => {
   };
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Text style={styles.titleText}>Create Sponsorship</Text>
+      <Text style={styles.titleText}>Creer Sponsorship</Text>
       <View style={styles.container}>
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.buttonStyle}
           onPress={() => chooseFile('photo')}>
-          <Text style={styles.textStyle}>Choose Image</Text>
+          <Text style={styles.textStyle}>Choisir Image</Text>
         </TouchableOpacity>
 
         <TextInput
@@ -143,7 +143,7 @@ const CreateSponsorShips = () => {
             await create();
             navigation.navigate('FakePayementPage');
           }}>
-          <Text style={styles.textStyle}>Pay Now</Text>
+          <Text style={styles.textStyle}>Payer</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

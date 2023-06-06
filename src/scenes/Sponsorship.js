@@ -8,9 +8,9 @@ const Sponsorship = ({route}) => {
       <Image
        style={styles.image}
         source={{
-          uri: `http://${url}/pictures/GuidesStates/Bizzert.jpg`,
+          // uri: `http://${url}/pictures/GuidesStates/sponsorship/cafe-souk.jpg`,
 
-          // uri: `http://${url}/pictures/${String(spons.image)}.jpg`,
+          uri: `http://${url}/pictures/GuidesStates/sponsorship/${String(spons.image)}.jpg`,
         }}
       />
       <Text style={styles.title}>{spons.title}</Text>

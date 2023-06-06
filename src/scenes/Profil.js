@@ -239,7 +239,7 @@ const Profil = () => {
                 opacity: 0.8,
                 color: 'black',
               }}>
-              Create Post
+              creer un poste
             </Text>
           </View>
         </TouchableOpacity>
@@ -267,7 +267,7 @@ const Profil = () => {
                 opacity: 0.8,
                 color: 'black',
               }}>
-              Create Sponsorship
+              faire un Sponsorship
             </Text>
           </View>
         </TouchableOpacity>
