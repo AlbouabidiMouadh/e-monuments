@@ -1,25 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-import uuid from 'react-native-uuid';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  Platform,
-  PermissionsAndroid,
-  ScrollView,
-  TextInput,
-} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {View, TextInput, Button, Image, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import url from '../config/url';
+import {useNavigation} from '@react-navigation/native';
 
-const CreatePost = () => {
-  const [picName, setPicName] = useState('aucune image sélectionnée pour le moment');
+const ModifyPostScreen = props => {
+  const postId = props.id;
   const getUser = async () => {
     const u = await AsyncStorage.getItem('user');
     const id = await AsyncStorage.getItem('id');
@@ -33,7 +20,21 @@ const CreatePost = () => {
   useEffect(() => {
     getUser();
   }, []);
-  const navigator = useNavigation();
+  const handleModifier = async () => {
+    try {
+      const data = {};
+      {
+        title ? (data = {...data, title}) : null;
+      }
+      {
+        pictureName ? (data = {...data, pictureName}) : null;
+      }
+      {
+        description ? (data = {...data, description}) : null;
+      }
+      axios.put(`http://${url}/modify-post/${postId}`, data);
+    } catch (error) {}
+  };
   const [user, setUser] = useState('');
   const [filePath, setFilePath] = useState({});
   const requestCameraPermission = async () => {
@@ -104,13 +105,6 @@ const CreatePost = () => {
           alert(response.errorMessage);
           return;
         }
-        // console.log('base64 -> ', response.base64);
-        // console.log('uri -> ', response.uri);
-        // console.log('width -> ', response.width);
-        // console.log('height -> ', response.height);
-        // console.log('fileSize -> ', response.fileSize);
-        // console.log('type -> ', response.type);
-        // console.log('fileName -> ', response.fileName);
         setFilePath(response.assets[0].uri);
         setPictureName(uuid.v4());
       });
@@ -140,13 +134,6 @@ const CreatePost = () => {
         alert(response.errorMessage);
         return;
       }
-      // console.log('base64 -> ', response.base64);
-      // console.log('uri -> ', response.uri);
-      // console.log('width -> ', response.width);
-      // console.log('height -> ', response.height);
-      // console.log('fileSize -> ', response.fileSize);
-      // console.log('type -> ', response.type);
-      // console.log('fileName -> ', response.fileName);
       console.log(response.assets[0].uri);
       setFilePath(response.assets[0].uri);
       const name = response.assets[0].uri;
@@ -159,8 +146,6 @@ const CreatePost = () => {
   const [pictureName, setPictureName] = useState(uuid.v4());
   const createPost = async () => {
     try {
-      // const pictureName = String(uuid.v4());
-
       const formData = new FormData();
       formData.append('profile', {
         name: pictureName,
@@ -171,7 +156,6 @@ const CreatePost = () => {
         headers: {
           Accept: 'application/json',
           'Content-Type': 'multipart/form-data',
-          // authorization: `JWT ${token}`,
         },
       });
       console.log('request create post made');
@@ -188,7 +172,6 @@ const CreatePost = () => {
           image: pictureName,
           createdByName: user,
           createdById: id,
-          
         },
         {headers: {'Content-Type': 'application/json'}},
       );
@@ -197,80 +180,58 @@ const CreatePost = () => {
       console.log(err);
     }
   };
-  return (
-    <SafeAreaView style={{flex: 1}}>
-      <Text style={styles.titleText}>Creer Post</Text>
-      <View style={styles.container}>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.buttonStyle}
-          onPress={() => captureImage('photo')}>
-          <Text style={styles.textStyle}>Lancer la caméra</Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.buttonStyle}
-          onPress={() => chooseFile('photo')}>
-          <Text style={styles.textStyle}
-          >Choisissez une image</Text>
-        </TouchableOpacity>
-        {filePath && <Text>{picName}</Text>}
-        {/* {filePath && <Image source={filePath} />} */}
-        <TextInput
-          placeholder="titre"
-          onChangeText={newText => setTitle(newText)}
-          style={{}}></TextInput>
-        <TextInput
-          placeholder="description"
-          onChangeText={newText => setDescription(newText)}
-          style={{}}></TextInput>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          style={styles.buttonStyle}
-          onPress={async () => {
-            await createPost();
-            navigator.navigate('Tabs');
-          }}>
-          <Text style={styles.textStyle}>creer</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+  const handleTakePicture = () => {
+    captureImage('photo');
+  };
+
+  const handleChooseFromGallery = () => {
+    chooseFile('photo');
+  };
+
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Titre"
+        value={title}
+        onChangeText={setTitle}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Description"
+        value={description}
+        onChangeText={setDescription}
+        multiline
+      />
+      {image && <Image source={{uri: image}} style={styles.image} />}
+      <Button title="Prendre une photo" onPress={handleTakePicture} />
+      <Button
+        title="Choisir depuis la galerie"
+        onPress={handleChooseFromGallery}
+      />
+      <Button title="Modifier" onPress={handleModifier} />
+    </View>
   );
 };
-
-export default CreatePost;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    padding: 16,
   },
-  titleText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    paddingVertical: 20,
+  input: {
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    marginBottom: 10,
+    paddingHorizontal: 10,
   },
-  textStyle: {
-    padding: 10,
-    color: 'black',
-    textAlign: 'center',
-    
-  },
-  buttonStyle: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 5,
-    marginVertical: 10,
-    width: 350,
-    borderRadius: 40,
-  },
-  imageStyle: {
-    width: 200,
+  image: {
+    width: '100%',
     height: 200,
-    margin: 5,
+    marginBottom: 10,
   },
 });
+
+export default ModifyPostScreen;

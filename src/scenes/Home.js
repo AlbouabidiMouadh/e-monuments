@@ -47,7 +47,7 @@ export default function Home() {
   }
   const fetchPosts = () => {
     axios
-      .get(`http://${url}/all-posts`)
+      .get(`http://${url}/all-post`)
       .then(result => {
         // console.log(result.data);
         setData(result.data);
