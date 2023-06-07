@@ -118,7 +118,6 @@ const Profil = () => {
             </TouchableOpacity>
           </View>
         </View>
-
         <View
           style={{
             flexDirection: 'row',
