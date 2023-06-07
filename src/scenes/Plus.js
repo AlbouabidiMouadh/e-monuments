@@ -19,7 +19,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import url from '../config/url';
 
 const CreatePost = () => {
-  const [picName, setPicName] = useState('no picture selected yet');
+  const [picName, setPicName] = useState('aucune image sélectionnée pour le moment');
   const getUser = async () => {
     const u = await AsyncStorage.getItem('user');
     const id = await AsyncStorage.getItem('id');
@@ -216,7 +216,7 @@ const CreatePost = () => {
           >Choisissez une image</Text>
         </TouchableOpacity>
         {filePath && <Text>{picName}</Text>}
-        {filePath && <Image source={filePath} />}
+        {/* {filePath && <Image source={filePath} />} */}
         <TextInput
           placeholder="titre"
           onChangeText={newText => setTitle(newText)}

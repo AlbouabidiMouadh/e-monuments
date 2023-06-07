@@ -78,7 +78,7 @@ const Profil = () => {
                 fontSize: 18,
                 fontWeight: 'bold',
                 color: 'black',
-                width: '40%', marginRight:"40px"
+                width: '40%'
               }}>
               {/* {'accountName'} */}
               {String(userData.firstName)+" "+String(userData.lastName)}
@@ -99,7 +99,7 @@ const Profil = () => {
                 }
                 navigation.navigate('Splash'); // Replace `navigator` with `navigation`
               }}
-              style={{width: '30%', marginLeft:"40px"}}>
+              style={{width: '30%'}}>
               <View
                 style={{
                   width: '100%',
@@ -156,7 +156,7 @@ const Profil = () => {
           </View>
         </View>
         <View style={{alignItems: 'center'}}>
-          <Text>{(String(userData.bio) + '   ') || " " }</Text>
+          <Text>{userData.bio != undefined ? String(userData.bio) + '   ' : " " }</Text>
         </View>
       </View>
     );
