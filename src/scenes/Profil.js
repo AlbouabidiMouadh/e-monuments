@@ -35,7 +35,7 @@ const Profil = () => {
       console.log(err);
     }
   };
-
+  const navigation = useNavigation();
   useEffect(() => {
     const fetchInfo = async () => {
       const userID = await AsyncStorage.getItem('id');
@@ -43,7 +43,7 @@ const Profil = () => {
       setUserId(JSON.parse(userID));
       setUserName(JSON.parse(username));
       console.log(userID);
-      console.log("username" +username);
+      console.log('username' + username);
     };
     const fetchData = async () => {
       await fetchUserData();
@@ -51,37 +51,31 @@ const Profil = () => {
     };
     fetchInfo();
     fetchData();
-    console.log(userData)
+    console.log(userData);
   }, [userId]);
   const ProfileBody = ({userData}) => {
     return (
       <View>
         <View
           style={{
-            // flexDirection: 'row',
-            // alignItems: 'center',
-            // justifyContent: 'space-between',
-            // flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            // marginBottom: '5px',
-            // marginTop: '5%',
           }}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              justifyContent: "space-between"
+              justifyContent: 'space-between',
             }}>
             <Text
               style={{
                 fontSize: 18,
                 fontWeight: 'bold',
                 color: 'black',
-                width: '40%'
+                width: '40%',
               }}>
               {/* {'accountName'} */}
-              {String(userData.firstName)+" "+String(userData.lastName)}
+              {String(userData.firstName) + ' ' + String(userData.lastName)}
             </Text>
             <View></View>
             <TouchableOpacity
@@ -156,7 +150,9 @@ const Profil = () => {
           </View>
         </View>
         <View style={{alignItems: 'center'}}>
-          <Text>{userData.bio != undefined ? String(userData.bio) + '   ' : " " }</Text>
+          <Text>
+            {userData.bio != undefined ? String(userData.bio) + '   ' : ' '}
+          </Text>
         </View>
       </View>
     );
