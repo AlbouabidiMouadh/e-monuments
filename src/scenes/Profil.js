@@ -20,8 +20,10 @@ const Profil = () => {
   const [userPosts, setUserPosts] = useState([]);
   const fetchUserData = async () => {
     console.log('request get user data started');
-    console.log('')
-    const userDataInfo = await axios.get(`http://${url}/user-profile/${userId}`);
+    console.log('');
+    const userDataInfo = await axios.get(
+      `http://${url}/user-profile/${userId}`,
+    );
     try {
       console.log('request get user data success');
       const userD = userDataInfo.data;
@@ -32,7 +34,7 @@ const Profil = () => {
       console.log(err);
     }
   };
- 
+
   useEffect(() => {
     const fetchInfo = async () => {
       const userID = await AsyncStorage.getItem('id');
@@ -48,16 +50,20 @@ const Profil = () => {
     };
     fetchInfo();
     fetchData();
-
   }, [userId]);
   const ProfileBody = ({userData}) => {
     return (
       <View>
         <View
           style={{
-            flexDirection: 'row',
+            // flexDirection: 'row',
+            // alignItems: 'center',
+            // justifyContent: 'space-between',
+            flex: 1,
+            justifyContent: 'center',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            // marginBottom: '5px',
+            // marginTop: '5%',
           }}>
           <View
             style={{
@@ -69,10 +75,12 @@ const Profil = () => {
                 fontSize: 18,
                 fontWeight: 'bold',
                 color: 'black',
+                width: '40%',
               }}>
               {/* {'accountName'} */}
               {userName}
             </Text>
+            <View></View>
             <TouchableOpacity
               onPress={async () => {
                 try {
@@ -88,7 +96,7 @@ const Profil = () => {
                 }
                 navigation.navigate('Splash'); // Replace `navigator` with `navigation`
               }}
-              style={{width: '30%', marginLeft: '44%', marginTop: '2%'}}>
+              style={{width: '30%', marginLeft: '30%'}}>
               <View
                 style={{
                   width: '100%',
@@ -144,9 +152,9 @@ const Profil = () => {
             </View>
           </View>
         </View>
-          <View style={{alignItems: "center"}}>
-            <Text>{userData.bio+"   "}</Text>
-          </View>
+        <View style={{alignItems: 'center'}}>
+          <Text>{userData.bio + '   '}</Text>
+        </View>
       </View>
     );
   };
@@ -167,7 +175,7 @@ const Profil = () => {
             onPress={() =>
               navigation.push('EditProfile', {
                 // profileImage: userData.profileImage,
-                user: userData
+                user: userData,
               })
             }
             style={{
@@ -202,7 +210,7 @@ const Profil = () => {
 
   navigator = useNavigation();
   return (
-    <View style={{width: '100%', height: '100%', backgroundColor: 'white'}}>
+    <View style={{width: '100%', backgroundColor: 'white'}}>
       <View style={{width: '100%', padding: 10}}>
         <ProfileBody userData={userData} />
 
@@ -239,7 +247,7 @@ const Profil = () => {
                 opacity: 0.8,
                 color: 'black',
               }}>
-              Create Post
+              creer un poste
             </Text>
           </View>
         </TouchableOpacity>
@@ -267,16 +275,25 @@ const Profil = () => {
                 opacity: 0.8,
                 color: 'black',
               }}>
-              Create Sponsorship
+              faire un Sponsorship
             </Text>
           </View>
         </TouchableOpacity>
       </View>
       <View>
         <View>
-          <Text>Posts</Text>
+          <Text
+            style={{
+              color: 'black',
+              fontWeight: 'bold',
+              fontSize: 20,
+              textAlign: 'center',
+              margin: 20,
+            }}>
+            Posts
+          </Text>
         </View>
-        <View
+        <ScrollView
           style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column'}}>
           {userPosts.map(item => {
             return (
@@ -289,11 +306,14 @@ const Profil = () => {
                   width={200}
                   height={200}
                 />
-                <Text>{item.title}</Text>
+                <Text
+                  style={{color: 'black', fontSize: 18, textAlign: 'center'}}>
+                  {item.title}
+                </Text>
               </View>
             );
           })}
-        </View>
+        </ScrollView>
       </View>
     </View>
   );

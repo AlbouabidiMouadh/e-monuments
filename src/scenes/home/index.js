@@ -1,15 +1,15 @@
-import React,{useState,useContext}from 'react';
+import React, {useState, useContext} from 'react';
 import {SafeAreaView, View, Text} from 'react-native';
 import Button from '../../components/Button';
 import {SCREEN_NAMES} from '../../navigators/screenNames';
 import colors from '../../styles/colors';
-import { getLiveMeetings } from '../../api/api';
-import { authToken } from '../../api/api';
-import { RoomContext } from '../../../App';
+import {getLiveMeetings} from '../../api/api';
+import {authToken} from '../../api/api';
+import {RoomContext} from '../../../App';
 export default function LiveStreamHome({navigation}) {
-  const {rooms,setRooms}=React.useContext(RoomContext)
-  const [blockBtn,setBlockBtn]=useState(false)
-const userName = 'user'
+  const {rooms, setRooms} = React.useContext(RoomContext);
+  const [blockBtn, setBlockBtn] = useState(false);
+  const userName = 'user';
   return (
     <SafeAreaView
       style={{
@@ -19,41 +19,41 @@ const userName = 'user'
       <View
         style={{
           flex: 1,
-          marginHorizontal: 22,
+
           justifyContent: 'center',
+          backgroundColor: '#B4D9F3',
         }}>
-          <Button
-          
-          text={'Join Live Streams'}
+        <Button
+          style={{
+            alignItems: 'center',
+            backgroundColor: '#006BBB',
+            borderRadius: 40,
+          }}
+          text={'JOINDRE LE STREAMING DIRECT'}
           onPress={async () => {
             try {
-              setBlockBtn(true)
+              setBlockBtn(true);
               const response = await getLiveMeetings();
-             if(response) {
-              setRooms(response)
-              setBlockBtn(false)
-              navigation.navigate(SCREEN_NAMES.Meeting, {
-                userName,
-                authToken,
-                undefined,
-                mode: 'VIEWER',
-                mutliplesMeeting : true,
-                rooms:rooms
-  
-              })}else{
-                //handel no live streams available 
-                  console.log('no streams available L44/LiveStremHome')
+              if (response) {
+                setRooms(response);
+                setBlockBtn(false);
+                navigation.navigate(SCREEN_NAMES.Meeting, {
+                  userName,
+                  authToken,
+                  undefined,
+                  mode: 'VIEWER',
+                  mutliplesMeeting: true,
+                  rooms: rooms,
+                });
+              } else {
+                //handel no live streams available
+                console.log('no streams available L44/LiveStremHome');
               }
-            } catch (error) {
-              
-            }
-           
-
-   
+            } catch (error) {}
           }}
           disabled={blockBtn}
         />
-      
+
         <View
           style={{
             alignSelf: 'center',
@@ -73,7 +73,7 @@ const userName = 'user'
               fontWeight: 'bold',
               marginHorizontal: 6,
             }}>
-            OR
+            OU
           </Text>
           <Text
             style={{
@@ -84,14 +84,20 @@ const userName = 'user'
           </Text>
         </View>
         <Button
-          text={'Start Live Stream'}
+          text={'FAIRE UN STREAMING DIRECT'}
+          style={{
+            alignItems: 'center',
+
+            borderRadius: 40,
+            backgroundColor: '#006BBB',
+          }}
           onPress={() => {
             navigation.navigate(SCREEN_NAMES.Speaker_Home, {
               isCreator: true,
             });
           }}
         />
-     {/*    <Button
+        {/*    <Button
           text={'Join as a speaker'}
           onPress={() => {
             navigation.navigate(SCREEN_NAMES.Speaker_Home, {

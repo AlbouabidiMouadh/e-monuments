@@ -48,7 +48,7 @@ export default function Meeting({navigation, route}) {
                 marginTop: 50,
                 zIndex: 1,
               }}>
-              Loading live streams ...
+              Chargement des session en direct...
             </Text>
           )}
 
@@ -100,7 +100,7 @@ export default function Meeting({navigation, route}) {
                              marginTop: 50,
                              zIndex: 1,
                            }}>
-                           This stream is comming to the end ...
+                           Ce session se termine bientôt...
                          </Text>
                           }
                           <ILSContainer

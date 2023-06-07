@@ -22,7 +22,9 @@ const CreatePost = () => {
   const [picName, setPicName] = useState('no picture selected yet');
   const getUser = async () => {
     const u = await AsyncStorage.getItem('user');
+    const id = await AsyncStorage.getItem('id');
     setUser(JSON.parse(u));
+    setID(JSON.parse(id));
     console.log(user);
     console.log('id = ');
     console.log();
@@ -184,9 +186,9 @@ const CreatePost = () => {
           title: title,
           description: description,
           image: pictureName,
-          createdBy: user,
-          // createdBy: "6435e3d119416fce34d108a0"
-          // createdBy: user.lastName + user.firstName,
+          createdByName: user,
+          createdById: id,
+          
         },
         {headers: {'Content-Type': 'application/json'}},
       );
@@ -197,25 +199,26 @@ const CreatePost = () => {
   };
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Text style={styles.titleText}>Create Post</Text>
+      <Text style={styles.titleText}>Creer Post</Text>
       <View style={styles.container}>
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.buttonStyle}
           onPress={() => captureImage('photo')}>
-          <Text style={styles.textStyle}>Launch Camera for Image</Text>
+          <Text style={styles.textStyle}>Lancer la caméra</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.buttonStyle}
           onPress={() => chooseFile('photo')}>
-          <Text style={styles.textStyle}>Choose Image</Text>
+          <Text style={styles.textStyle}
+          >Choisissez une image</Text>
         </TouchableOpacity>
         {filePath && <Text>{picName}</Text>}
         {filePath && <Image source={filePath} />}
         <TextInput
-          placeholder="title"
+          placeholder="titre"
           onChangeText={newText => setTitle(newText)}
           style={{}}></TextInput>
         <TextInput
@@ -229,7 +232,7 @@ const CreatePost = () => {
             await createPost();
             navigator.navigate('Tabs');
           }}>
-          <Text style={styles.textStyle}>create</Text>
+          <Text style={styles.textStyle}>creer</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -255,13 +258,15 @@ const styles = StyleSheet.create({
     padding: 10,
     color: 'black',
     textAlign: 'center',
+    
   },
   buttonStyle: {
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
     padding: 5,
     marginVertical: 10,
-    width: 250,
+    width: 350,
+    borderRadius: 40,
   },
   imageStyle: {
     width: 200,
