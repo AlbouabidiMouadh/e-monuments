@@ -16,5 +16,6 @@ export const SCREEN_NAMES = {
   FakePayemetPage: 'FakePayementPage',
   Guide: 'Guide',
   CreateSponsorship: 'CreateSponsorship',
-  Sponsorship: 'Sponsorship'
+  Sponsorship: 'Sponsorship',
+  ModifyPost: 'ModifyPost'
 };

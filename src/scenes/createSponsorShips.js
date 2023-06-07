@@ -18,10 +18,14 @@ import {launchImageLibrary} from 'react-native-image-picker';
 const CreateSponsorShips = () => {
   const getUserId = async () => {
     const user = await AsyncStorage.getItem('user');
+    const id = await AsyncStorage.getItem('id');
     console.log('user = ', user);
-    setUserID(user);
+    console.log('id = ', id);
+    setUserName(user);
+    setUserID(id);
   };
   const [userID, setUserID] = useState(null);
+  const [userName, setUserName] = useState(null);
   getUserId();
   const navigation = useNavigation();
   const [location, setLocation] = useState();
@@ -105,6 +109,8 @@ const CreateSponsorShips = () => {
           description: description,
           image: pictureName,
           location: location,
+          createdById: id,
+          createdByName: userName
         },
         {headers: {'Content-Type': 'application/json'}},
       );

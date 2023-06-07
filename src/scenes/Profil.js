@@ -22,7 +22,7 @@ const Profil = () => {
     console.log('request get user data started');
     console.log('');
     const userDataInfo = await axios.get(
-      `http://${url}/user-profile/${userId}`,
+      `http://${url}/user-profile/${String(userId)}`,
     );
     try {
       console.log('request get user data success');
@@ -30,6 +30,7 @@ const Profil = () => {
       setUserData(userD.user);
       setUserPosts(userD.filtredPosts);
       console.log(userData);
+      console.log(userPosts);
     } catch (err) {
       console.log(err);
     }
@@ -42,7 +43,7 @@ const Profil = () => {
       setUserId(JSON.parse(userID));
       setUserName(JSON.parse(username));
       console.log(userID);
-      console.log(username);
+      console.log("username" +username);
     };
     const fetchData = async () => {
       await fetchUserData();
@@ -50,6 +51,7 @@ const Profil = () => {
     };
     fetchInfo();
     fetchData();
+    console.log(userData)
   }, [userId]);
   const ProfileBody = ({userData}) => {
     return (
@@ -78,7 +80,7 @@ const Profil = () => {
                 width: '40%',
               }}>
               {/* {'accountName'} */}
-              {userName}
+              {String(userData.firstName)}
             </Text>
             <View></View>
             <TouchableOpacity
@@ -153,7 +155,7 @@ const Profil = () => {
           </View>
         </View>
         <View style={{alignItems: 'center'}}>
-          <Text>{userData.bio + '   '}</Text>
+          <Text>{String(userData.bio) + '   '}</Text>
         </View>
       </View>
     );
@@ -209,6 +211,17 @@ const Profil = () => {
   };
 
   navigator = useNavigation();
+  const DeletePostHandler = async id => {
+    try {
+      const response = axios.delete(`http://${url}/post/${id}`);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const ModifyPostHandler = id => {
+    navigator.navigate('ModifyPost', {id: id});
+  };
   return (
     <View style={{width: '100%', backgroundColor: 'white'}}>
       <View style={{width: '100%', padding: 10}}>
@@ -310,6 +323,12 @@ const Profil = () => {
                   style={{color: 'black', fontSize: 18, textAlign: 'center'}}>
                   {item.title}
                 </Text>
+                <TouchableOpacity onPress={ModifyPostHandler(item._id)}>
+                  <Text>Modifier</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={DeletePostHandler(item._id)}>
+                  <Text>supprimer</Text>
+                </TouchableOpacity>
               </View>
             );
           })}
