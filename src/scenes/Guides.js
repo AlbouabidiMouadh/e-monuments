@@ -111,7 +111,7 @@ const Guides = () => {
                     });
                   else alert('you need to sign in to see this content');
                 }}>
-                <Text style={{color: 'black'}}>ReadMore</Text>
+                <Text style={{color: 'black'}}>Plus </Text>
               </TouchableOpacity>
             </View>
           );
@@ -150,7 +150,7 @@ const Guides = () => {
                     navigation.navigate('Sponsorship', {spons: item});
                   else alert('you need to sign in to see this content');
                 }}>
-                <Text style={{color: 'black'}}>Plus Information</Text>
+                <Text style={{color: 'black'}}>Plus </Text>
               </TouchableOpacity>
             </View>
           );

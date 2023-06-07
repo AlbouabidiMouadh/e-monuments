@@ -154,7 +154,7 @@ export default function Home() {
                   else alert('you need to sign in to see this content');
                 }}>
                 <Text style={{textAlign: 'center'}}>
-                  ReadMore{' '}
+                  Plus {' '}
                   
                 </Text>
                 <Text style={{textAlign: 'center'}}>
