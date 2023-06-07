@@ -37,7 +37,7 @@ const Guides = () => {
   };
   const [guides, setGuides] = useState();
   const fetchSponsorships = () => {
-    axios.get(`http://${url}/all-sponsorships`).then(result => {
+    axios.get(`http://${url}/all-sponsorship`).then(result => {
       const data = result.data;
       console.log('--------------------------------------------------------');
       console.log(data);

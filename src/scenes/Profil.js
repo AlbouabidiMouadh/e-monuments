@@ -61,7 +61,7 @@ const Profil = () => {
             // flexDirection: 'row',
             // alignItems: 'center',
             // justifyContent: 'space-between',
-            flex: 1,
+            // flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
             // marginBottom: '5px',
@@ -71,16 +71,17 @@ const Profil = () => {
             style={{
               flexDirection: 'row',
               alignItems: 'center',
+              justifyContent: "space-between"
             }}>
             <Text
               style={{
                 fontSize: 18,
                 fontWeight: 'bold',
                 color: 'black',
-                width: '40%',
+                width: '40%', marginRight:"40px"
               }}>
               {/* {'accountName'} */}
-              {String(userName)}
+              {String(userData.firstName)+" "+String(userData.lastName)}
             </Text>
             <View></View>
             <TouchableOpacity
@@ -98,7 +99,7 @@ const Profil = () => {
                 }
                 navigation.navigate('Splash'); // Replace `navigator` with `navigation`
               }}
-              style={{width: '30%', marginLeft: '30%'}}>
+              style={{width: '30%', marginLeft:"40px"}}>
               <View
                 style={{
                   width: '100%',
@@ -155,7 +156,7 @@ const Profil = () => {
           </View>
         </View>
         <View style={{alignItems: 'center'}}>
-          <Text>{String(userData.bio) + '   '}</Text>
+          <Text>{(String(userData.bio) + '   ') || " " }</Text>
         </View>
       </View>
     );
