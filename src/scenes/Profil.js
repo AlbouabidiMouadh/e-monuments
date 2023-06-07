@@ -22,7 +22,7 @@ const Profil = () => {
     console.log('request get user data started');
     console.log('');
     const userDataInfo = await axios.get(
-      `http://${url}/user-profile/${userId}`,
+      `http://${url}/user-profile/${String(userId)}`,
     );
     try {
       console.log('request get user data success');
@@ -30,11 +30,12 @@ const Profil = () => {
       setUserData(userD.user);
       setUserPosts(userD.filtredPosts);
       console.log(userData);
+      console.log(userPosts);
     } catch (err) {
       console.log(err);
     }
   };
-
+  const navigation = useNavigation();
   useEffect(() => {
     const fetchInfo = async () => {
       const userID = await AsyncStorage.getItem('id');
@@ -42,7 +43,7 @@ const Profil = () => {
       setUserId(JSON.parse(userID));
       setUserName(JSON.parse(username));
       console.log(userID);
-      console.log(username);
+      console.log('username' + username);
     };
     const fetchData = async () => {
       await fetchUserData();
@@ -50,25 +51,21 @@ const Profil = () => {
     };
     fetchInfo();
     fetchData();
+    console.log(userData);
   }, [userId]);
   const ProfileBody = ({userData}) => {
     return (
       <View>
         <View
           style={{
-            // flexDirection: 'row',
-            // alignItems: 'center',
-            // justifyContent: 'space-between',
-            flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            // marginBottom: '5px',
-            // marginTop: '5%',
           }}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
+              justifyContent: 'space-between',
             }}>
             <Text
               style={{
@@ -78,7 +75,7 @@ const Profil = () => {
                 width: '40%',
               }}>
               {/* {'accountName'} */}
-              {userName}
+              {String(userData.firstName) + ' ' + String(userData.lastName)}
             </Text>
             <View></View>
             <TouchableOpacity
@@ -96,7 +93,7 @@ const Profil = () => {
                 }
                 navigation.navigate('Splash'); // Replace `navigator` with `navigation`
               }}
-              style={{width: '30%', marginLeft: '30%'}}>
+              style={{width: '30%'}}>
               <View
                 style={{
                   width: '100%',
@@ -121,7 +118,6 @@ const Profil = () => {
             </TouchableOpacity>
           </View>
         </View>
-
         <View
           style={{
             flexDirection: 'row',
@@ -153,7 +149,9 @@ const Profil = () => {
           </View>
         </View>
         <View style={{alignItems: 'center'}}>
-          <Text>{userData.bio + '   '}</Text>
+          <Text>
+            {userData.bio != undefined ? String(userData.bio) + '   ' : ' '}
+          </Text>
         </View>
       </View>
     );
@@ -209,6 +207,17 @@ const Profil = () => {
   };
 
   navigator = useNavigation();
+  const DeletePostHandler = async id => {
+    try {
+      const response = axios.delete(`http://${url}/post/${id}`);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const ModifyPostHandler = id => {
+    navigator.navigate('ModifyPost', {id: id});
+  };
   return (
     <View style={{width: '100%', backgroundColor: 'white'}}>
       <View style={{width: '100%', padding: 10}}>
@@ -310,6 +319,12 @@ const Profil = () => {
                   style={{color: 'black', fontSize: 18, textAlign: 'center'}}>
                   {item.title}
                 </Text>
+                <TouchableOpacity onPress={ModifyPostHandler(item._id)}>
+                  <Text>Modifier</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={DeletePostHandler(item._id)}>
+                  <Text>supprimer</Text>
+                </TouchableOpacity>
               </View>
             );
           })}

@@ -20,6 +20,7 @@ import Guide from './src/scenes/Guide';
 import CreateSponsorShips from './src/scenes/createSponsorShips';
 import FakePaymentPage from './src/scenes/PayementPage';
 import Sponsorship from './src/scenes/Sponsorship';
+import ModifyPostScreen from './src/scenes/ModifyPost';
 
 const RootStack = createStackNavigator();
 
@@ -128,6 +129,11 @@ export default function App({}) {
           <RootStack.Screen
             name={SCREEN_NAMES.Sponsorship}
             component={Sponsorship}
+            options={{headerShown: false}}
+          />
+          <RootStack.Screen
+            name={SCREEN_NAMES.ModifyPost}
+            component={ModifyPostScreen}
             options={{headerShown: false}}
           />
 

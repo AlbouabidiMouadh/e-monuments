@@ -18,10 +18,14 @@ import {launchImageLibrary} from 'react-native-image-picker';
 const CreateSponsorShips = () => {
   const getUserId = async () => {
     const user = await AsyncStorage.getItem('user');
+    const id = await AsyncStorage.getItem('id');
     console.log('user = ', user);
-    setUserID(user);
+    console.log('id = ', id);
+    setUserName(user);
+    setUserID(id);
   };
   const [userID, setUserID] = useState(null);
+  const [userName, setUserName] = useState(null);
   getUserId();
   const navigation = useNavigation();
   const [location, setLocation] = useState();
@@ -75,6 +79,8 @@ const CreateSponsorShips = () => {
       }
       console.log(response.assets[0].uri);
       setFilePath(response.assets[0].uri);
+      const name = response.assets[0].uri;
+      setPicName(name);
       setPictureName(uuid.v4());
     });
   };
@@ -105,6 +111,8 @@ const CreateSponsorShips = () => {
           description: description,
           image: pictureName,
           location: location,
+          createdById: id,
+          createdByName: userName
         },
         {headers: {'Content-Type': 'application/json'}},
       );
@@ -113,6 +121,7 @@ const CreateSponsorShips = () => {
       console.log(err);
     }
   };
+  const [picName, setPicName] = useState('aucune image sélectionnée pour le moment');
   return (
     <SafeAreaView style={{flex: 1}}>
       <Text style={styles.titleText}>Creer Sponsorship</Text>
@@ -136,6 +145,8 @@ const CreateSponsorShips = () => {
           placeholder="location"
           onChangeText={newText => setLocation(newText)}
           style={{}}></TextInput>
+          {filePath && <Text>{picName}</Text>}
+        {/* {filePath && <Image source={filePath} />} */}
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.buttonStyle}
