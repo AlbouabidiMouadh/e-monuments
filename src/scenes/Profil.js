@@ -80,7 +80,7 @@ const Profil = () => {
                 width: '40%',
               }}>
               {/* {'accountName'} */}
-              {String(userData.firstName)}
+              {String(userName)}
             </Text>
             <View></View>
             <TouchableOpacity
