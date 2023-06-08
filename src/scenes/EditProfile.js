@@ -18,7 +18,7 @@ import {useEffect} from 'react';
 const EditProfile = ({route, navigation}) => {
   const userD = route.user ;
   const getId = async () => {
-    const id = await AsyncStorage.getItem('user');
+    const id = await AsyncStorage.getItem('id');
     setID(JSON.parse(id));
     console.log(id);
   };
@@ -36,12 +36,14 @@ const EditProfile = ({route, navigation}) => {
     setUser({lastname: lastName, firstName: firstName, email: email, bio: bio});
     // JSON.stringify(user)
     console.log(user);
-    const response = await axios.put(`http://${url}/user/${ID}`, {
-      lastname: lastName,
+    const response = await axios.put(`http://${url}/user/${String(ID)}`, {
+      lastName: lastName,
       firstName: firstName,
       email: email,
       bio: bio,
+      profileImage: pictureName
     });
+    updateImage();
     console.log(ID);
     try {
       res = response.data;
@@ -86,8 +88,8 @@ const EditProfile = ({route, navigation}) => {
       return false;
     } else return true;
   };
-  const [pictureName, setPictureName] = useState(uuid.v4());
-  const [filePath, setFilePath] = useState({});
+  const [pictureName, setPictureName] = useState();
+  const [filePath, setFilePath] = useState();
 
   const updateImage = async () => {
     try {
@@ -110,14 +112,14 @@ const EditProfile = ({route, navigation}) => {
     }
   };
   const setImage = async () => {
-    let isStoragePermitted = await requestExternalWritePermission();
+    // let isStoragePermitted = await requestExternalWritePermission();
     let options = {
       mediaType: 'photo',
       maxWidth: 300,
       maxHeight: 550,
       quality: 1,
     };
-    if (isStoragePermitted) {
+    // if (isStoragePermitted) {
       launchImageLibrary(options, response => {
         console.log('Response = ', response);
 
@@ -136,10 +138,10 @@ const EditProfile = ({route, navigation}) => {
         }
         console.log(response.assets[0].uri);
         setFilePath(response.assets[0].uri);
-        setPictureName(uuid.v4());
-        updateImage();
+        setPictureName(ID);
+        
       });
-    }
+    // }
   };
   return (
     <View
@@ -190,8 +192,10 @@ const EditProfile = ({route, navigation}) => {
         <Text
           style={{
             color: '#3493D9',
+            width: "50%",
+            textAlign: "center"
           }}>
-          Modifier la photo
+          {filePath ? "une image a ete choisit" : "clicker sur l'image pour choisir une photo de profil"}
         </Text>
       </View>
       <View style={{padding: 10}}>
@@ -213,7 +217,7 @@ const EditProfile = ({route, navigation}) => {
               fontWeight: 'bold',
             }}
             onChangeText={newText => {
-              setLastName(newText);
+              setFirstName(newText);
             }}
           />
         </View>
@@ -235,7 +239,7 @@ const EditProfile = ({route, navigation}) => {
               fontWeight: 'bold',
             }}
             onChangeText={newText => {
-              setFirstName(newText);
+              setLastName(newText);
             }}
           />
         </View>

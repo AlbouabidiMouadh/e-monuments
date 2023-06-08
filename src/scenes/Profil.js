@@ -136,8 +136,9 @@ const Profil = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
+                
               <Image
-                source={require('../assets/images/profilll.png')}
+                source={userData.profileImage ? {uri:`http://${url}/pictures/${userId}.jpg` } : require('../assets/images/profilll.png') }
                 style={{
                   resizeMode: 'cover',
                   width: 80,
