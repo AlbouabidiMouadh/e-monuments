@@ -200,7 +200,7 @@ const CreatePost = () => {
   };
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Text style={styles.titleText}>Creer Post</Text>
+      <Text style={styles.titleText}>Creer Publication</Text>
       <View style={styles.container}>
         <TouchableOpacity
           activeOpacity={0.5}
@@ -228,7 +228,7 @@ const CreatePost = () => {
           style={{}}></TextInput>
         <TouchableOpacity
           activeOpacity={0.5}
-          style={styles.buttonStyle}
+          style={styles.creerStyle}
           onPress={async () => {
             await createPost();
             navigator.navigate('Tabs');
@@ -273,5 +273,13 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     margin: 5,
+  },
+  creerStyle: {
+    backgroundColor: '#ED8C56',
+    alignItems: 'center',
+    padding: 5,
+    marginVertical: 10,
+    width: 350,
+    borderRadius: 40,
   },
 });
