@@ -33,7 +33,7 @@ const ModifyPostScreen = props => {
         description ? (data = {...data, description}) : null;
       }
       axios.put(`http://${url}/modify-post/${postId}`, data);
-    } catch (error) {}
+    } catch (error) {console.log(error)}
   };
   const [user, setUser] = useState('');
   const [filePath, setFilePath] = useState({});
