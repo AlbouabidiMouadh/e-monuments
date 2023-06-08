@@ -154,14 +154,7 @@ export default function Home() {
                   if (isLogged) navigation.navigate('post', {post: item});
                   else alert('you need to sign in to see this content');
                 }}>
-<<<<<<< HEAD
                 <Text style={{textAlign: 'center'}}>ReadMore </Text>
-=======
-                <Text style={{textAlign: 'center'}}>
-                  Plus {' '}
-                  
-                </Text>
->>>>>>> 3fd9de2d53d7e708aabb9c1fff5e743dc8bd41e3
                 <Text style={{textAlign: 'center'}}>
                   Creer par {item.createdBy}
                 </Text>
