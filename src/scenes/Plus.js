@@ -19,6 +19,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import url from '../config/url';
 
 const CreatePost = () => {
+  const [ID, setID] = useState();
   const [picName, setPicName] = useState('aucune image sélectionnée pour le moment');
   const getUser = async () => {
     const u = await AsyncStorage.getItem('user');
@@ -187,7 +188,7 @@ const CreatePost = () => {
           description: description,
           image: pictureName,
           createdByName: user,
-          createdById: id,
+          createdById: ID,
           
         },
         {headers: {'Content-Type': 'application/json'}},
