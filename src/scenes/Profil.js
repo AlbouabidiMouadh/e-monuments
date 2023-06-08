@@ -112,7 +112,7 @@ const Profil = () => {
                     opacity: 0.8,
                     color: 'red',
                   }}>
-                  Log Out
+                  Déconnexion
                 </Text>
               </View>
             </TouchableOpacity>
@@ -256,7 +256,7 @@ const Profil = () => {
                 opacity: 0.8,
                 color: 'black',
               }}>
-              creer un poste
+              Créer Publication
             </Text>
           </View>
         </TouchableOpacity>
@@ -284,7 +284,7 @@ const Profil = () => {
                 opacity: 0.8,
                 color: 'black',
               }}>
-              faire un Sponsorship
+              Faire un Sponsorship
             </Text>
           </View>
         </TouchableOpacity>
