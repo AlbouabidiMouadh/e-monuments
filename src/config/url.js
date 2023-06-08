@@ -1,6 +1,6 @@
 // <<<<<<< HEAD
 // <<<<<<< HEAD
-export default url = '192.168.1.77:5000';
+export default url = '192.168.1.12:5000';
 // =======
 // export default url = '192.168.1.104:5000';
 // >>>>>>> b851d44eda8a1a014ea15634fee482607b7acf37
