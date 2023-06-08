@@ -18,7 +18,7 @@ import url from '../config/url';
 const postStyles = StyleSheet.create({
   vPostContainer: {
     width: Dimensions.get('screen').width,
-    height: 400,
+    height: 450,
     // textAlign: "center"
   },
   vPostImage: {
@@ -136,21 +136,28 @@ export default function Home() {
                 }}
               />
               <View>
-
-              <Icon
-                size={30}
-                style={styles.iconStyle}
-                name="heart"
-                color="red"
-                onPress={() => {
-                  likeButton(item._id);
-                }}
-              />
-              <Text style={postStyles.vPostDescription}>likes : {item.likes}</Text>
-              <Text style={postStyles.vPostTitle}>{item.title + '  '}</Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    // justifyContent: "center"
+                  }}>
+                  <Icon
+                    size={30}
+                    style={styles.iconStyle}
+                    name="heart"
+                    color="red"
+                    onPress={() => {
+                      likeButton(item._id);
+                    }}
+                  />
+                  <Text style={styles.likes}>{item.likes}</Text>
+                </View>
+                <Text style={postStyles.vPostTitle}>{item.title + '  '}</Text>
               </View>
               <Text style={postStyles.vPostDescription}>
-                {item.description}
+                {String(item.description).substring(0, 100)}...
               </Text>
               <TouchableOpacity
                 // style= {{borderColor:"black", borderRadius: 5, borderWidth:1, width:100, marginLeft: "35%"}}
@@ -159,9 +166,31 @@ export default function Home() {
                   else alert('you need to sign in to see this content');
                 }}>
                 <Text style={{textAlign: 'center'}}>ReadMore </Text>
-                <Text style={{textAlign: 'center'}}>
-                  Creer par {item.createdByName}
-                </Text>
+                <View
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: "center"
+                  }}>
+                    <Image
+                    source={
+                      item.createdByImage
+                        ? {uri: `http://${url}/pictures/${userId}.jpg`}
+                        : require('../assets/images/profilll.png')
+                    }
+                    style={{
+                      resizeMode: 'cover',
+                      width: 25,
+                      height: 25,
+                      borderRadius: 90,
+                    }}
+                  />
+                  <Text style={{textAlign: 'center'}}>
+                    Creer par {item.createdByName}
+                  </Text>
+                  
+                </View>
               </TouchableOpacity>
             </View>
           );
@@ -182,4 +211,5 @@ const styles = StyleSheet.create({
   iconStyle: {
     marginHorizontal: 8,
   },
+  likes: {textAlign: 'center'},
 });

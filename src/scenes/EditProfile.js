@@ -16,7 +16,7 @@ import axios from 'axios';
 import {useEffect} from 'react';
 
 const EditProfile = ({route, navigation}) => {
-  const userD = route.user ;
+  const userD = route.user;
   const getId = async () => {
     const id = await AsyncStorage.getItem('id');
     setID(JSON.parse(id));
@@ -25,7 +25,7 @@ const EditProfile = ({route, navigation}) => {
   useEffect(() => {
     getId();
   }, []);
-  const [pic, setPic] = useState(require("../assets/images/profilll.png"))
+  const [pic, setPic] = useState(require('../assets/images/profilll.png'));
   const [ID, setID] = useState(getId);
   const [lastName, setLastName] = useState(null);
   const [firstName, setFirstName] = useState(null);
@@ -41,7 +41,7 @@ const EditProfile = ({route, navigation}) => {
       firstName: firstName,
       email: email,
       bio: bio,
-      profileImage: pictureName
+      profileImage: pictureName,
     });
     updateImage();
     console.log(ID);
@@ -120,27 +120,26 @@ const EditProfile = ({route, navigation}) => {
       quality: 1,
     };
     // if (isStoragePermitted) {
-      launchImageLibrary(options, response => {
-        console.log('Response = ', response);
+    launchImageLibrary(options, response => {
+      console.log('Response = ', response);
 
-        if (response.didCancel) {
-          alert('User cancelled camera picker');
-          return;
-        } else if (response.errorCode == 'camera_unavailable') {
-          alert('Camera not available on device');
-          return;
-        } else if (response.errorCode == 'permission') {
-          alert('Permission not satisfied');
-          return;
-        } else if (response.errorCode == 'others') {
-          alert(response.errorMessage);
-          return;
-        }
-        console.log(response.assets[0].uri);
-        setFilePath(response.assets[0].uri);
-        setPictureName(ID);
-        
-      });
+      if (response.didCancel) {
+        alert('User cancelled camera picker');
+        return;
+      } else if (response.errorCode == 'camera_unavailable') {
+        alert('Camera not available on device');
+        return;
+      } else if (response.errorCode == 'permission') {
+        alert('Permission not satisfied');
+        return;
+      } else if (response.errorCode == 'others') {
+        alert(response.errorMessage);
+        return;
+      }
+      console.log(response.assets[0].uri);
+      setFilePath(response.assets[0].uri);
+      setPictureName(ID);
+    });
     // }
   };
   return (
@@ -192,10 +191,12 @@ const EditProfile = ({route, navigation}) => {
         <Text
           style={{
             color: '#3493D9',
-            width: "50%",
-            textAlign: "center"
+            width: '50%',
+            textAlign: 'center',
           }}>
-          {filePath ? "une image a ete choisit" : "clicker sur l'image pour choisir une photo de profil"}
+          {filePath
+            ? 'une image a ete choisit'
+            : "clicker sur l'image pour choisir une photo de profil"}
         </Text>
       </View>
       <View style={{padding: 10}}>
