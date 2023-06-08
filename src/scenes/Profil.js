@@ -206,7 +206,7 @@ const Profil = () => {
     );
   };
 
-  navigator = useNavigation();
+  const navigator = useNavigation();
   const DeletePostHandler = async id => {
     try {
       const response = axios.delete(`http://${url}/post/${id}`);

@@ -135,6 +135,8 @@ export default function Home() {
                   uri: `http://${url}/pictures/${String(item.image)}.jpg`,
                 }}
               />
+              <View>
+
               <Icon
                 size={30}
                 style={styles.iconStyle}
@@ -144,7 +146,9 @@ export default function Home() {
                   likeButton(item._id);
                 }}
               />
+              <Text style={postStyles.vPostDescription}>likes : {item.likes}</Text>
               <Text style={postStyles.vPostTitle}>{item.title + '  '}</Text>
+              </View>
               <Text style={postStyles.vPostDescription}>
                 {item.description}
               </Text>
@@ -156,7 +160,7 @@ export default function Home() {
                 }}>
                 <Text style={{textAlign: 'center'}}>ReadMore </Text>
                 <Text style={{textAlign: 'center'}}>
-                  Creer par {item.createdBy}
+                  Creer par {item.createdByName}
                 </Text>
               </TouchableOpacity>
             </View>
