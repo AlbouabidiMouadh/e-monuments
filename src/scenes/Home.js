@@ -36,15 +36,14 @@ const postStyles = StyleSheet.create({
 });
 
 export default function Home() {
-  const likeButton = async (id) => {
+  const likeButton = async id => {
     try {
-      console.log("like pressed");
-      const response = axios.put(`http://${url}/post-like/${id}`)
-    }
-    catch (error) {
+      console.log('like pressed');
+      const response = axios.put(`http://${url}/post-like/${id}`, userid);
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
   const fetchPosts = () => {
     axios
       .get(`http://${url}/all-post`)
@@ -56,6 +55,7 @@ export default function Home() {
   };
   const dataToken = AsyncStorage.getItem('AccessToken');
   const [user, setUser] = useState();
+  const [userid, setId] = useState();
   const navigation = useNavigation();
   const [isLogged, setIsLogged] = useState(false);
   const [data, setData] = useState(fetchPosts());
@@ -74,8 +74,10 @@ export default function Home() {
     try {
       const d = await AsyncStorage.getItem('AccessToken');
       const u = await AsyncStorage.getItem('user');
+      const id = await AsyncStorage.getItem('id');
       console.log(u);
       setUser(u);
+      setId(JSON.parse(id));
       console.log(d);
 
       setIsLogged(d);
@@ -130,36 +132,31 @@ export default function Home() {
               <Image
                 style={postStyles.vPostImage}
                 source={{
-                  uri: `http://${url}/pictures/${String(
-                    item.image,
-                  )}.jpg`,
+                  uri: `http://${url}/pictures/${String(item.image)}.jpg`,
                 }}
-              /><Icon
-                    size={30}
-                    style={styles.iconStyle}
-                    name="heart"
-                    color="red"
-                    onPress={() => {
-                      likeButton(item._id);
-                    }}
-                  />
-              <Text style={postStyles.vPostTitle}>{item.title+"  "}</Text>
+              />
+              <Icon
+                size={30}
+                style={styles.iconStyle}
+                name="heart"
+                color="red"
+                onPress={() => {
+                  likeButton(item._id);
+                }}
+              />
+              <Text style={postStyles.vPostTitle}>{item.title + '  '}</Text>
               <Text style={postStyles.vPostDescription}>
                 {item.description}
               </Text>
               <TouchableOpacity
-              // style= {{borderColor:"black", borderRadius: 5, borderWidth:1, width:100, marginLeft: "35%"}}
+                // style= {{borderColor:"black", borderRadius: 5, borderWidth:1, width:100, marginLeft: "35%"}}
                 onPress={() => {
                   if (isLogged) navigation.navigate('post', {post: item});
                   else alert('you need to sign in to see this content');
                 }}>
-                <Text style={{textAlign: 'center'}}>
-                  ReadMore{' '}
-                  
-                </Text>
+                <Text style={{textAlign: 'center'}}>ReadMore </Text>
                 <Text style={{textAlign: 'center'}}>
                   Creer par {item.createdBy}
-                  
                 </Text>
               </TouchableOpacity>
             </View>
