@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#B4D9F3',
     alignItems: 'center',
   },
   titleText: {
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    backgroundColor: '#006BBB',
     padding: 5,
     marginVertical: 10,
     width: 350,

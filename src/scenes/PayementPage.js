@@ -16,7 +16,7 @@ const FakePaymentPage = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Donnees de Payments</Text>
+      <Text style={styles.title}>Données de Payments</Text>
 
       <TextInput
         style={styles.input}
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#B4D9F3',
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 4,

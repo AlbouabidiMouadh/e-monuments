@@ -22,7 +22,7 @@ const IconContainer = ({
         flexDirection: 'row',
         borderRadius: 14,
         borderWidth: 1.5,
-        borderColor: '#2B3034',
+        borderColor: '#006BBB',
         backgroundColor: backgroundColor,
         ...style,
       }}>

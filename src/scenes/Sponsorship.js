@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    marginTop: 80,
-    marginBottom: 30,
+    marginTop: 100,
+    marginBottom: 50,
     resizeMode: 'cover',
     height: 300,
     width: 300,
