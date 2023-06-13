@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import uuid from 'react-native-uuid';
 import {
@@ -13,9 +13,9 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import url from '../config/url';
 
 const CreatePost = () => {
@@ -189,9 +189,9 @@ const CreatePost = () => {
           image: pictureName,
           createdByName: user,
           createdById: ID,
-          
+
         },
-        {headers: {'Content-Type': 'application/json'}},
+        { headers: { 'Content-Type': 'application/json' } },
       );
       console.log(result);
     } catch (err) {
@@ -199,13 +199,45 @@ const CreatePost = () => {
     }
   };
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <Text style={styles.titleText}>Creer Publication</Text>
       <View style={styles.container}>
         <TouchableOpacity
           activeOpacity={0.5}
           style={styles.buttonStyle}
-          onPress={() => captureImage('photo')}>
+          onPress={() => {
+
+            const options = {
+              mediaType: "photo",
+              maxWidth: 300,
+              maxHeight: 550,
+              quality: 1,
+              videoQuality: 'low',
+              durationLimit: 30, //Video max duration in seconds
+              saveToPhotos: true,
+            };
+            launchCamera(options, response => {
+              console.log('Response = ', response.assets[0].uri);
+
+              if (response.didCancel) {
+                alert('User cancelled camera picker');
+                return;
+              } else if (response.errorCode == 'camera_unavailable') {
+                alert('Camera not available on device');
+                return;
+              } else if (response.errorCode == 'permission') {
+                alert('Permission not satisfied');
+                return;
+              } else if (response.errorCode == 'others') {
+                alert(response.errorMessage);
+                return;
+              }
+              setFilePath(response.assets[0].uri);
+              setPictureName(uuid.v4());
+            });
+          }
+            // captureImage('photo')
+          }>
           <Text style={styles.textStyle}>Lancer la caméra</Text>
         </TouchableOpacity>
 
@@ -259,7 +291,7 @@ const styles = StyleSheet.create({
     padding: 10,
     color: 'black',
     textAlign: 'center',
-    
+
   },
   buttonStyle: {
     alignItems: 'center',

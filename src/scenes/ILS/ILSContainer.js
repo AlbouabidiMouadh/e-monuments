@@ -26,6 +26,13 @@ export default function ILSContainer(props) {
     mMeetingRef.current = mMeeting;
   }, [mMeeting]);
 
+
+  // const home = {title, desc} ;
+  // useHome 
+  // const {title} = useHome()
+
+
+
   const {join, changeWebcam, leave, participants, localParticipant,webcamOn ,webcamStream} =
     useMeeting({
       onParticipantModeChanged: ({mode, participantId}) => {

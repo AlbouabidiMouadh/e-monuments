@@ -67,8 +67,8 @@ const creatingMeeting=async()=>{
   } catch (error) {
     console.log(error)
   }
-
 }
+
   const disposeVideoTrack = () => {
     setTrack(stream => {
       stream.getTracks().forEach(track => {

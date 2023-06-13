@@ -7,9 +7,10 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {useState, useEffect} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import axios from 'axios';
 import Guidedata from './GuidesData';
@@ -53,7 +54,8 @@ const Guides = () => {
       .then(result => {
         const user = AsyncStorage.getItem('user');
         if (typeof user) {
-          const listGuides = result.data.slice(0, 23);
+          // const listGuides = result.data.slice(0, 23);
+          const listGuides = result.data
           console.log(
             '--------------------------------------------------------',
           );
@@ -83,12 +85,12 @@ const Guides = () => {
         horizontal
         pagingEnabled={true}
         scrollEnabled={true}
-        style={{height: '120%'}}
+        style={{ height: '120%' }}
         data={guides}
         // data={guides}
         keyExtractor={guide => guide._id}
         ListEmptyComponent={() => <Text>pas de publication</Text>}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return (
             <View style={postStyles.vPostContainer}>
               <Image
@@ -97,7 +99,18 @@ const Guides = () => {
                   uri: `http://${url}/pictures/GuidesStates/${item.image}.jpg`,
                 }}
               />
-              <Text style={postStyles.vPostTitle}>{item.title}</Text>
+              <View style={postStyles.header}>
+                <Icon
+                  size={30}
+                  style={postStyles.iconStyle}
+                  name="heart"
+                  color="red"
+                  // onPress={() => {
+                  //   likeButton(item._id);
+                  // }}
+                />
+                <Text style={postStyles.vPostTitle}>{item.title}</Text>
+              </View>
               <Text style={postStyles.vPostDescription}>
                 {item.description.substr(0, 200) + '...'}
               </Text>
@@ -111,7 +124,7 @@ const Guides = () => {
                     });
                   else alert('you need to sign in to see this content');
                 }}>
-                <Text style={{color: 'black'}}>Plus </Text>
+                <Text style={{ color: 'black' }}>Plus </Text>
               </TouchableOpacity>
             </View>
           );
@@ -123,34 +136,34 @@ const Guides = () => {
       <FlatList
         pagingEnabled={true}
         scrollEnabled={true}
-        // style={{height: '80%'}}
+        style={{ marginBottom: 150}}
         data={sponsorships}
         keyExtractor={sponsorship => sponsorship._id}
         ListEmptyComponent={() => <Text>pas de sponsoprships</Text>}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return (
-            <View style={{alignItems: 'center', minHeight: 100, color: 'black'}}>
+            <View style={{ alignItems: 'center', minHeight: 100, color: 'black' }}>
               <Image
-                style={{resizeMode: 'cover', height: 200, width: 300}}
+                style={{ resizeMode: 'cover', height: 200, width: 300 }}
                 source={{
                   uri: `http://${url}/pictures/GuidesStates/sponsorship/${String(
                     item.image,
                   )}.jpg`,
                 }}
               />
-              <Text style={{fontSize: 20, color: 'black'}}>{item.title}</Text>
+              <Text style={{ fontSize: 20, color: 'black' }}>{item.title}</Text>
               {/* <Text>{item.description}</Text> */}
-              <Text style={{fontSize: 15, color: 'black'}}>
+              <Text style={{ fontSize: 15, color: 'black' }}>
                 {String(item.location)}
               </Text>
               <TouchableOpacity
-                style={{marginBottom: 10}}
+                style={{ marginBottom: 10 }}
                 onPress={() => {
                   if (isLogged)
-                    navigation.navigate('Sponsorship', {spons: item});
+                    navigation.navigate('Sponsorship', { spons: item });
                   else alert('you need to sign in to see this content');
                 }}>
-                <Text style={{color: 'black'}}>Plus </Text>
+                <Text style={{ color: 'black' }}>Plus </Text>
               </TouchableOpacity>
             </View>
           );
@@ -181,10 +194,22 @@ const postStyles = StyleSheet.create({
   vPostTitle: {
     color: 'black',
     fontSize: 30,
+    textAlign: "center",
   },
   vPostDescription: {
     color: 'black',
   },
+  iconStyle :{
+    alignSelf: "flex-start",
+    justifyContent: "flex-start",
+    alignContent: "flex-start"
+  },
+  header :{
+    display: "flex",
+    textAlign: "left",
+    alignItems: "flex-start",
+    flexDirection: "row"
+  }
 });
 
 export default Guides;

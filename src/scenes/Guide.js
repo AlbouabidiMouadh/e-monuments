@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   View,
@@ -8,13 +8,16 @@ import {
   FlatList,
   StyleSheet,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Guide = ({route}) => {
-  const {state, stateInfo} = route.params;
+const Guide = ({ route }) => {
+  const { state, stateInfo } = route.params;
   console.log(state, stateInfo);
+  const [userid, setUserid] = useState();
   const [guides, setGuides] = useState([{}]);
   const fetchGuides = async () => {
     const response = await axios.get(
@@ -28,15 +31,28 @@ const Guide = ({route}) => {
       console.log(error);
     }
   };
+  const fetchuserid = async () => {
+    const u = await AsyncStorage.getItem("id");
+    setUserid(JSON.parse(u));
+  }
   useEffect(() => {
+    fetchuserid();
     fetchGuides();
     console.log(guides)
   }, []);
+  const likeButton = async id => {
+    try {
+      console.log('like pressed');
+      const response = axios.put(`http://${url}/guide-like/${id}`, userid);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <View>
       <ScrollView>
 
-      {/* <View style={{alignItems: 'center', alignContent: 'center'}}>
+        {/* <View style={{alignItems: 'center', alignContent: 'center'}}>
         <Text style={styles.title}>{stateInfo.title}</Text>
         <Image
           style={styles.image}
@@ -51,7 +67,7 @@ const Guide = ({route}) => {
           />
           <Text style={styles.description}>{stateInfo.description}</Text>
       </View> */}
-      {/* <FlatList
+        {/* <FlatList
         pagingEnabled={true}
         scrollEnabled={true}
         data={guides}
@@ -78,23 +94,40 @@ const Guide = ({route}) => {
             </View>
           );
         }}*/}
-      {/* />  */}
-      {guides.map((item) => {
-        return (
-          <View style={styles.container}>
-            <Image
-              style={styles.image}
-              source={{
-                uri: `http://${url}/pictures/GuidesStates/${String(item.image)}.jpg`,
-              }}
-            />
-            <Text style={styles.title}>{item.title}</Text>
-            <Text>{item.location}</Text> 
-            <Text style={styles.description}>{item.description}</Text>
-            <Text style={styles.description}>like: {item.likes}</Text>
-          </View>
-        );
-      })}
+        {/* />  */}
+        {guides.map((item) => {
+          return (
+            <View style={styles.container}>
+              <Image
+                style={styles.image}
+                source={{
+                  uri: `http://${url}/pictures/GuidesStates/${String(item.image)}.jpg`,
+                }}
+              />
+              <Text style={styles.title}>{item.title}</Text>
+              <Text>{item.location}</Text>
+              <Text style={styles.description}>{item.description}</Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: "center"
+                }}>
+                <Icon
+                  size={30}
+                  style={styles.iconStyle}
+                  name="heart"
+                  color="red"
+                  onPress={() => {
+                    likeButton(item._id);
+                  }}
+                />
+                <Text style={styles.likes}>{item.likes}</Text>
+              </View>
+            </View>
+          );
+        })}
       </ScrollView>
     </View>
   );
