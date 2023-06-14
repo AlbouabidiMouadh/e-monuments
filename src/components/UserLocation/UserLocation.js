@@ -1,12 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import MapView, {Callout, Marker} from 'react-native-maps';
 import {StyleSheet, Text, View} from 'react-native';
-import RoundWhiteButton from './FinLocation';
-import {
-  animateToRegion,
-  getLocation,
-  moveToUserLocation,
-} from './MaplocationController';
+
 import Geolocation from '@react-native-community/geolocation';
 import axios from 'axios';
 

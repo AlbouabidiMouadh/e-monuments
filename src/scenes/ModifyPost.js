@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, TextInput, Button, Image, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import url from '../config/url';
 import {useNavigation} from '@react-navigation/native';
+import uuid from 'react-native-uuid';
 
 const ModifyPostScreen = props => {
   const postId = props.id;
@@ -204,7 +205,7 @@ const ModifyPostScreen = props => {
         onChangeText={setDescription}
         multiline
       />
-      {image && <Image source={{uri: image}} style={styles.image} />}
+      {/* {image && <Image source={{uri: image}} style={styles.image} />} */}
       <Button title="Prendre une photo" onPress={handleTakePicture} />
       <Button
         title="Choisir depuis la galerie"

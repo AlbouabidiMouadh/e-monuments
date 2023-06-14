@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 // import {ProfileBody, ProfileButtons} from '../components/ProfileBody';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import url from '../config/url';
 import axios from 'axios';
 const Profil = () => {
@@ -53,7 +53,7 @@ const Profil = () => {
     fetchData();
     console.log(userData);
   }, [userId]);
-  const ProfileBody = ({userData}) => {
+  const ProfileBody = ({ userData }) => {
     return (
       <View>
         <View
@@ -93,7 +93,7 @@ const Profil = () => {
                 }
                 navigation.navigate('Splash'); // Replace `navigator` with `navigation`
               }}
-              style={{width: '30%'}}>
+              style={{ width: '30%' }}>
               <View
                 style={{
                   width: '100%',
@@ -139,7 +139,7 @@ const Profil = () => {
               <Image
                 source={
                   userData.profileImage
-                    ? {uri: `http://${url}/pictures/${userId}.jpg`}
+                    ? { uri: `http://${url}/pictures/${userId}.jpg` }
                     : require('../assets/images/profilll.png')
                 }
                 style={{
@@ -152,7 +152,7 @@ const Profil = () => {
             </View>
           </View>
         </View>
-        <View style={{alignItems: 'center'}}>
+        <View style={{ alignItems: 'center' }}>
           <Text>
             {userData.bio != undefined ? String(userData.bio) + '   ' : ' '}
           </Text>
@@ -212,19 +212,20 @@ const Profil = () => {
 
   const navigator = useNavigation();
   const DeletePostHandler = async id => {
+    console.log(id)
     try {
-      const response = axios.delete(`http://${url}/post/${id}`);
+      const response = axios.delete(`http://${url}/post/${String(id)}`);
       console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
   const ModifyPostHandler = id => {
-    navigator.navigate('ModifyPost', {id: id});
+    navigator.navigate('ModifyPost', { id: id });
   };
   return (
-    <View style={{width: '100%', backgroundColor: 'white'}}>
-      <View style={{width: '100%', padding: 10}}>
+    <View style={{ width: '100%', backgroundColor: 'white' }}>
+      <View style={{ width: '100%', padding: 10 }}>
         <ProfileBody userData={userData} />
 
         <ProfileButtons />
@@ -241,7 +242,7 @@ const Profil = () => {
           onPress={() => {
             navigator.navigate('Plus');
           }}
-          style={{width: '45%'}}>
+          style={{ width: '45%' }}>
           <View
             style={{
               width: '100%',
@@ -269,7 +270,7 @@ const Profil = () => {
           onPress={() => {
             navigator.navigate('CreateSponsorship');
           }}
-          style={{width: '45%'}}>
+          style={{ width: '45%' }}>
           <View
             style={{
               width: '100%',
@@ -293,7 +294,7 @@ const Profil = () => {
           </View>
         </TouchableOpacity>
       </View>
-      <View>
+      <View style={{ display: "flex", alignItems: 'flex-start', alignContent: "flex-start", minHeight: 500, marginBottom: 100 }}>
         <View>
           <Text
             style={{
@@ -307,10 +308,13 @@ const Profil = () => {
           </Text>
         </View>
         <ScrollView
-          style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column'}}>
+          style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', marginBottom: 100 }}>
           {userPosts.map(item => {
             return (
-              <View style={{width: Dimensions.get('screen').width / 2 - 20}}>
+              <View style={{ width: Dimensions.get('screen').width / 2 - 20 }}>
+                {/* <TouchableOpacity onPress={ModifyPostHandler(item._id)}>
+                    <Text>Modifier</Text>
+                  </TouchableOpacity> */}
                 <Image
                   alt={item.description}
                   source={{
@@ -320,13 +324,10 @@ const Profil = () => {
                   height={200}
                 />
                 <Text
-                  style={{color: 'black', fontSize: 18, textAlign: 'center'}}>
+                  style={{ color: 'black', fontSize: 18, textAlign: 'center' }}>
                   {item.title}
                 </Text>
-                <TouchableOpacity onPress={ModifyPostHandler(item._id)}>
-                  <Text>Modifier</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={DeletePostHandler(item._id)}>
+                <TouchableOpacity onPress={() => { DeletePostHandler(item._id) }}>
                   <Text>supprimer</Text>
                 </TouchableOpacity>
               </View>

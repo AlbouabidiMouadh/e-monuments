@@ -176,7 +176,7 @@ export default function Home() {
                     <Image
                     source={
                       item.createdByImage
-                        ? {uri: `http://${url}/pictures/${userId}.jpg`}
+                        ? {uri: `http://${url}/pictures/${userid}.jpg`}
                         : require('../assets/images/profilll.png')
                     }
                     style={{
