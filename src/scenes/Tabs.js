@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/dist/Ionicons';
 import Home from './Home';
 import Guides from './Guides';
 import Profil22 from './Profil';
-import Map from './map';
 import UserMap from '../components/UserLocation/UserLocation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState} from 'react';
